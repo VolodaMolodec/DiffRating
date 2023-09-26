@@ -1,0 +1,11 @@
+G:\Visual Studio\Projects\Cpp\DifficultyRating\bin\Debug\DifficultyRating.exe.config
+G:\Visual Studio\Projects\Cpp\DifficultyRating\bin\Debug\DifficultyRating.exe
+G:\Visual Studio\Projects\Cpp\DifficultyRating\bin\Debug\DifficultyRating.pdb
+G:\Visual Studio\Projects\Cpp\DifficultyRating\obj\Debug\DifficultyRating.csproj.AssemblyReference.cache
+G:\Visual Studio\Projects\Cpp\DifficultyRating\obj\Debug\DifficultyRating.csproj.SuggestedBindingRedirects.cache
+G:\Visual Studio\Projects\Cpp\DifficultyRating\obj\Debug\DifficultyRating.Form1.resources
+G:\Visual Studio\Projects\Cpp\DifficultyRating\obj\Debug\DifficultyRating.Properties.Resources.resources
+G:\Visual Studio\Projects\Cpp\DifficultyRating\obj\Debug\DifficultyRating.csproj.GenerateResource.cache
+G:\Visual Studio\Projects\Cpp\DifficultyRating\obj\Debug\DifficultyRating.csproj.CoreCompileInputs.cache
+G:\Visual Studio\Projects\Cpp\DifficultyRating\obj\Debug\DifficultyRating.exe
+G:\Visual Studio\Projects\Cpp\DifficultyRating\obj\Debug\DifficultyRating.pdb
