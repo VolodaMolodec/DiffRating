@@ -9,3 +9,29 @@ G:\Visual Studio\Projects\Cpp\DifficultyRating\obj\Debug\DifficultyRating.csproj
 G:\Visual Studio\Projects\Cpp\DifficultyRating\obj\Debug\DifficultyRating.csproj.CoreCompileInputs.cache
 G:\Visual Studio\Projects\Cpp\DifficultyRating\obj\Debug\DifficultyRating.exe
 G:\Visual Studio\Projects\Cpp\DifficultyRating\obj\Debug\DifficultyRating.pdb
+C:\Visual Sudio Pojects\DiffRating\DifficultyRating\bin\Debug\DifficultyRating.exe.config
+C:\Visual Sudio Pojects\DiffRating\DifficultyRating\bin\Debug\DifficultyRating.exe
+C:\Visual Sudio Pojects\DiffRating\DifficultyRating\bin\Debug\DifficultyRating.pdb
+C:\Visual Sudio Pojects\DiffRating\DifficultyRating\bin\Debug\ZedGraph.dll
+C:\Visual Sudio Pojects\DiffRating\DifficultyRating\bin\Debug\ZedGraph.xml
+C:\Visual Sudio Pojects\DiffRating\DifficultyRating\bin\Debug\de\ZedGraph.resources.dll
+C:\Visual Sudio Pojects\DiffRating\DifficultyRating\bin\Debug\es\ZedGraph.resources.dll
+C:\Visual Sudio Pojects\DiffRating\DifficultyRating\bin\Debug\fr\ZedGraph.resources.dll
+C:\Visual Sudio Pojects\DiffRating\DifficultyRating\bin\Debug\hu\ZedGraph.resources.dll
+C:\Visual Sudio Pojects\DiffRating\DifficultyRating\bin\Debug\it\ZedGraph.resources.dll
+C:\Visual Sudio Pojects\DiffRating\DifficultyRating\bin\Debug\ja\ZedGraph.resources.dll
+C:\Visual Sudio Pojects\DiffRating\DifficultyRating\bin\Debug\pt\ZedGraph.resources.dll
+C:\Visual Sudio Pojects\DiffRating\DifficultyRating\bin\Debug\ru\ZedGraph.resources.dll
+C:\Visual Sudio Pojects\DiffRating\DifficultyRating\bin\Debug\sk\ZedGraph.resources.dll
+C:\Visual Sudio Pojects\DiffRating\DifficultyRating\bin\Debug\sv\ZedGraph.resources.dll
+C:\Visual Sudio Pojects\DiffRating\DifficultyRating\bin\Debug\tr\ZedGraph.resources.dll
+C:\Visual Sudio Pojects\DiffRating\DifficultyRating\bin\Debug\zh-cn\ZedGraph.resources.dll
+C:\Visual Sudio Pojects\DiffRating\DifficultyRating\bin\Debug\zh-tw\ZedGraph.resources.dll
+C:\Visual Sudio Pojects\DiffRating\DifficultyRating\obj\Debug\DifficultyRating.csproj.AssemblyReference.cache
+C:\Visual Sudio Pojects\DiffRating\DifficultyRating\obj\Debug\DifficultyRating.Form1.resources
+C:\Visual Sudio Pojects\DiffRating\DifficultyRating\obj\Debug\DifficultyRating.Properties.Resources.resources
+C:\Visual Sudio Pojects\DiffRating\DifficultyRating\obj\Debug\DifficultyRating.csproj.GenerateResource.cache
+C:\Visual Sudio Pojects\DiffRating\DifficultyRating\obj\Debug\DifficultyRating.csproj.CoreCompileInputs.cache
+C:\Visual Sudio Pojects\DiffRating\DifficultyRating\obj\Debug\DifficultyRating.csproj.CopyComplete
+C:\Visual Sudio Pojects\DiffRating\DifficultyRating\obj\Debug\DifficultyRating.exe
+C:\Visual Sudio Pojects\DiffRating\DifficultyRating\obj\Debug\DifficultyRating.pdb

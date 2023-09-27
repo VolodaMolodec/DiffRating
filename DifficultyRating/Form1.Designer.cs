@@ -1,4 +1,6 @@
-﻿namespace DifficultyRating
+﻿using System.Windows.Forms;
+
+namespace DifficultyRating
 {
     partial class Form1
     {
@@ -28,11 +30,17 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.StartButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.ElementsInputTextBox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.SelectionSortOutput = new System.Windows.Forms.TextBox();
+            this.zedGraphControl = new ZedGraph.ZedGraphControl();
+            this.graphSelectComboBox = new System.Windows.Forms.ComboBox();
+            this.QuickSortOutput = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.initButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // StartButton
@@ -79,11 +87,72 @@
             this.SelectionSortOutput.Size = new System.Drawing.Size(69, 20);
             this.SelectionSortOutput.TabIndex = 4;
             // 
+            // zedGraphControl
+            // 
+            this.zedGraphControl.Location = new System.Drawing.Point(222, 12);
+            this.zedGraphControl.Name = "zedGraphControl";
+            this.zedGraphControl.ScrollGrace = 0D;
+            this.zedGraphControl.ScrollMaxX = 0D;
+            this.zedGraphControl.ScrollMaxY = 0D;
+            this.zedGraphControl.ScrollMaxY2 = 0D;
+            this.zedGraphControl.ScrollMinX = 0D;
+            this.zedGraphControl.ScrollMinY = 0D;
+            this.zedGraphControl.ScrollMinY2 = 0D;
+            this.zedGraphControl.Size = new System.Drawing.Size(566, 366);
+            this.zedGraphControl.TabIndex = 5;
+            this.zedGraphControl.UseExtendedPrintDialog = true;
+            // 
+            // graphSelectComboBox
+            // 
+            this.graphSelectComboBox.FormattingEnabled = true;
+            this.graphSelectComboBox.Items.AddRange(new object[] {
+            "Выборочная сортировка",
+            "Быстрая сортировка",
+            "Фибоначчи",
+            "Крутой Фибоначчи"});
+            this.graphSelectComboBox.Location = new System.Drawing.Point(31, 62);
+            this.graphSelectComboBox.Name = "graphSelectComboBox";
+            this.graphSelectComboBox.Size = new System.Drawing.Size(153, 21);
+            this.graphSelectComboBox.TabIndex = 6;
+            this.graphSelectComboBox.SelectedIndexChanged += new System.EventHandler(this.graphSelectComboBox_SelectedIndexChanged);
+            // 
+            // QuickSortOutput
+            // 
+            this.QuickSortOutput.Location = new System.Drawing.Point(452, 410);
+            this.QuickSortOutput.Name = "QuickSortOutput";
+            this.QuickSortOutput.ReadOnly = true;
+            this.QuickSortOutput.Size = new System.Drawing.Size(69, 20);
+            this.QuickSortOutput.TabIndex = 7;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(435, 394);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(113, 13);
+            this.label3.TabIndex = 8;
+            this.label3.Text = "Быстрая сортировка";
+            // 
+            // initButton
+            // 
+            this.initButton.Location = new System.Drawing.Point(56, 12);
+            this.initButton.Name = "initButton";
+            this.initButton.Size = new System.Drawing.Size(101, 44);
+            this.initButton.TabIndex = 9;
+            this.initButton.Text = "Инициализация";
+            this.initButton.UseVisualStyleBackColor = true;
+            this.initButton.Click += new System.EventHandler(this.initButton_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.initButton);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.QuickSortOutput);
+            this.Controls.Add(this.graphSelectComboBox);
+            this.Controls.Add(this.zedGraphControl);
             this.Controls.Add(this.SelectionSortOutput);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.ElementsInputTextBox);
@@ -103,6 +172,11 @@
         private System.Windows.Forms.TextBox ElementsInputTextBox;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox SelectionSortOutput;
+        private ZedGraph.ZedGraphControl zedGraphControl;
+        private System.Windows.Forms.ComboBox graphSelectComboBox;
+        private System.Windows.Forms.TextBox QuickSortOutput;
+        private System.Windows.Forms.Label label3;
+        private Button initButton;
     }
 }
 
