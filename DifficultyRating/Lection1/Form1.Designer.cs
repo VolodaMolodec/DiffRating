@@ -37,10 +37,11 @@ namespace DifficultyRating
             this.label2 = new System.Windows.Forms.Label();
             this.SelectionSortOutput = new System.Windows.Forms.TextBox();
             this.zedGraphControl = new ZedGraph.ZedGraphControl();
-            this.graphSelectComboBox = new System.Windows.Forms.ComboBox();
+            this.graphSelectComboBox1 = new System.Windows.Forms.ComboBox();
             this.QuickSortOutput = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.initButton = new System.Windows.Forms.Button();
+            this.graphSelectComboBox2 = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // StartButton
@@ -102,19 +103,22 @@ namespace DifficultyRating
             this.zedGraphControl.TabIndex = 5;
             this.zedGraphControl.UseExtendedPrintDialog = true;
             // 
-            // graphSelectComboBox
+            // graphSelectComboBox1
             // 
-            this.graphSelectComboBox.FormattingEnabled = true;
-            this.graphSelectComboBox.Items.AddRange(new object[] {
+            this.graphSelectComboBox1.FormattingEnabled = true;
+            this.graphSelectComboBox1.Items.AddRange(new object[] {
             "Выборочная сортировка",
             "Быстрая сортировка",
             "Фибоначчи",
-            "Крутой Фибоначчи"});
-            this.graphSelectComboBox.Location = new System.Drawing.Point(31, 62);
-            this.graphSelectComboBox.Name = "graphSelectComboBox";
-            this.graphSelectComboBox.Size = new System.Drawing.Size(153, 21);
-            this.graphSelectComboBox.TabIndex = 6;
-            this.graphSelectComboBox.SelectedIndexChanged += new System.EventHandler(this.graphSelectComboBox_SelectedIndexChanged);
+            "Крутой Фибоначчи",
+            "Построение бинарного дерева",
+            "Поиск элемента бинарного дерева",
+            "Вычисление глубины бинарного дерева"});
+            this.graphSelectComboBox1.Location = new System.Drawing.Point(31, 62);
+            this.graphSelectComboBox1.Name = "graphSelectComboBox1";
+            this.graphSelectComboBox1.Size = new System.Drawing.Size(153, 21);
+            this.graphSelectComboBox1.TabIndex = 6;
+            this.graphSelectComboBox1.SelectedIndexChanged += new System.EventHandler(this.graphSelectComboBox_SelectedIndexChanged);
             // 
             // QuickSortOutput
             // 
@@ -143,15 +147,33 @@ namespace DifficultyRating
             this.initButton.UseVisualStyleBackColor = true;
             this.initButton.Click += new System.EventHandler(this.initButton_Click);
             // 
+            // graphSelectComboBox2
+            // 
+            this.graphSelectComboBox2.FormattingEnabled = true;
+            this.graphSelectComboBox2.Items.AddRange(new object[] {
+            "Выборочная сортировка",
+            "Быстрая сортировка",
+            "Фибоначчи",
+            "Крутой Фибоначчи",
+            "Построение бинарного дерева",
+            "Поиск элемента бинарного дерева",
+            "Вычисление глубины бинарного дерева"});
+            this.graphSelectComboBox2.Location = new System.Drawing.Point(31, 89);
+            this.graphSelectComboBox2.Name = "graphSelectComboBox2";
+            this.graphSelectComboBox2.Size = new System.Drawing.Size(153, 21);
+            this.graphSelectComboBox2.TabIndex = 10;
+            this.graphSelectComboBox2.SelectedIndexChanged += new System.EventHandler(this.graphSelectComboBox_SelectedIndexChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.graphSelectComboBox2);
             this.Controls.Add(this.initButton);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.QuickSortOutput);
-            this.Controls.Add(this.graphSelectComboBox);
+            this.Controls.Add(this.graphSelectComboBox1);
             this.Controls.Add(this.zedGraphControl);
             this.Controls.Add(this.SelectionSortOutput);
             this.Controls.Add(this.label2);
@@ -173,10 +195,11 @@ namespace DifficultyRating
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox SelectionSortOutput;
         private ZedGraph.ZedGraphControl zedGraphControl;
-        private System.Windows.Forms.ComboBox graphSelectComboBox;
+        private System.Windows.Forms.ComboBox graphSelectComboBox1;
         private System.Windows.Forms.TextBox QuickSortOutput;
         private System.Windows.Forms.Label label3;
         private Button initButton;
+        private ComboBox graphSelectComboBox2;
     }
 }
 

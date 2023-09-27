@@ -35,3 +35,32 @@ C:\Visual Sudio Pojects\DiffRating\DifficultyRating\obj\Debug\DifficultyRating.c
 C:\Visual Sudio Pojects\DiffRating\DifficultyRating\obj\Debug\DifficultyRating.csproj.CopyComplete
 C:\Visual Sudio Pojects\DiffRating\DifficultyRating\obj\Debug\DifficultyRating.exe
 C:\Visual Sudio Pojects\DiffRating\DifficultyRating\obj\Debug\DifficultyRating.pdb
+G:\Visual Studio\Projects\Cpp\DiffRating\DifficultyRating\bin\Debug\DifficultyRating.exe.config
+G:\Visual Studio\Projects\Cpp\DiffRating\DifficultyRating\bin\Debug\DifficultyRating.exe
+G:\Visual Studio\Projects\Cpp\DiffRating\DifficultyRating\bin\Debug\DifficultyRating.pdb
+G:\Visual Studio\Projects\Cpp\DiffRating\DifficultyRating\bin\Debug\ZedGraph.dll
+G:\Visual Studio\Projects\Cpp\DiffRating\DifficultyRating\bin\Debug\ZedGraph.xml
+G:\Visual Studio\Projects\Cpp\DiffRating\DifficultyRating\bin\Debug\de\ZedGraph.resources.dll
+G:\Visual Studio\Projects\Cpp\DiffRating\DifficultyRating\bin\Debug\es\ZedGraph.resources.dll
+G:\Visual Studio\Projects\Cpp\DiffRating\DifficultyRating\bin\Debug\fr\ZedGraph.resources.dll
+G:\Visual Studio\Projects\Cpp\DiffRating\DifficultyRating\bin\Debug\hu\ZedGraph.resources.dll
+G:\Visual Studio\Projects\Cpp\DiffRating\DifficultyRating\bin\Debug\it\ZedGraph.resources.dll
+G:\Visual Studio\Projects\Cpp\DiffRating\DifficultyRating\bin\Debug\ja\ZedGraph.resources.dll
+G:\Visual Studio\Projects\Cpp\DiffRating\DifficultyRating\bin\Debug\pt\ZedGraph.resources.dll
+G:\Visual Studio\Projects\Cpp\DiffRating\DifficultyRating\bin\Debug\ru\ZedGraph.resources.dll
+G:\Visual Studio\Projects\Cpp\DiffRating\DifficultyRating\bin\Debug\sk\ZedGraph.resources.dll
+G:\Visual Studio\Projects\Cpp\DiffRating\DifficultyRating\bin\Debug\sv\ZedGraph.resources.dll
+G:\Visual Studio\Projects\Cpp\DiffRating\DifficultyRating\bin\Debug\tr\ZedGraph.resources.dll
+G:\Visual Studio\Projects\Cpp\DiffRating\DifficultyRating\bin\Debug\zh-cn\ZedGraph.resources.dll
+G:\Visual Studio\Projects\Cpp\DiffRating\DifficultyRating\bin\Debug\zh-tw\ZedGraph.resources.dll
+G:\Visual Studio\Projects\Cpp\DiffRating\DifficultyRating\obj\Debug\DifficultyRating.csproj.AssemblyReference.cache
+G:\Visual Studio\Projects\Cpp\DiffRating\DifficultyRating\obj\Debug\DifficultyRating.csproj.SuggestedBindingRedirects.cache
+G:\Visual Studio\Projects\Cpp\DiffRating\DifficultyRating\obj\Debug\DifficultyRating.Form1.resources
+G:\Visual Studio\Projects\Cpp\DiffRating\DifficultyRating\obj\Debug\DifficultyRating.Properties.Resources.resources
+G:\Visual Studio\Projects\Cpp\DiffRating\DifficultyRating\obj\Debug\DifficultyRating.csproj.GenerateResource.cache
+G:\Visual Studio\Projects\Cpp\DiffRating\DifficultyRating\obj\Debug\DifficultyRating.csproj.CoreCompileInputs.cache
+G:\Visual Studio\Projects\Cpp\DiffRating\DifficultyRating\obj\Debug\DifficultyRating.csproj.CopyComplete
+G:\Visual Studio\Projects\Cpp\DiffRating\DifficultyRating\obj\Debug\DifficultyRating.exe
+G:\Visual Studio\Projects\Cpp\DiffRating\DifficultyRating\obj\Debug\DifficultyRating.pdb
+G:\Visual Studio\Projects\Cpp\DiffRating\DifficultyRating\obj\Debug\DifficultyRating.DifficulityRate.resources
+G:\Visual Studio\Projects\Cpp\DiffRating\DifficultyRating\obj\Debug\DifficultyRating.Lection2.Lection2.resources
