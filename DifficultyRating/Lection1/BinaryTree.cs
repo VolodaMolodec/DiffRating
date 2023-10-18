@@ -67,18 +67,11 @@ namespace DifficultyRating
                     return false;
                 if (value == node.value)
                     return true;
-                else if (findVal(value, node.leftNode))
-                {
-                    diff.operationsCount++;
-                    return true;
-                }
-                else if (findVal(value, node.rightNode))
-                {
-                    diff.operationsCount += 2;
-                    return true;
-                }
-                diff.operationsCount += 2;
-                return false;
+                diff.operationsCount++;
+                if (node.value >= value)
+                    return findVal(value, node.leftNode);
+                else
+                    return findVal(value, node.rightNode);
             }
             public DifficulityRate getDepthDiff()
             {

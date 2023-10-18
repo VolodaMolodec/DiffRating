@@ -33,6 +33,7 @@
             this.graphSelectComboBox1 = new System.Windows.Forms.ComboBox();
             this.graphSelectComboBox2 = new System.Windows.Forms.ComboBox();
             this.coefficientTextBox = new System.Windows.Forms.TextBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // zedGraphControl
@@ -88,11 +89,22 @@
             this.coefficientTextBox.Visible = false;
             this.coefficientTextBox.Validated += new System.EventHandler(this.graphSelectComboBox1_SelectedIndexChanged);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(349, 5);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(112, 20);
+            this.button1.TabIndex = 4;
+            this.button1.Text = "Инициализация";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // Lection2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(631, 444);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.coefficientTextBox);
             this.Controls.Add(this.graphSelectComboBox2);
             this.Controls.Add(this.graphSelectComboBox1);
@@ -110,5 +122,6 @@
         private System.Windows.Forms.ComboBox graphSelectComboBox1;
         private System.Windows.Forms.ComboBox graphSelectComboBox2;
         private System.Windows.Forms.TextBox coefficientTextBox;
+        private System.Windows.Forms.Button button1;
     }
 }

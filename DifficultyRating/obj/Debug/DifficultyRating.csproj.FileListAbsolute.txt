@@ -64,3 +64,5 @@ G:\Visual Studio\Projects\Cpp\DiffRating\DifficultyRating\obj\Debug\DifficultyRa
 G:\Visual Studio\Projects\Cpp\DiffRating\DifficultyRating\obj\Debug\DifficultyRating.pdb
 G:\Visual Studio\Projects\Cpp\DiffRating\DifficultyRating\obj\Debug\DifficultyRating.DifficulityRate.resources
 G:\Visual Studio\Projects\Cpp\DiffRating\DifficultyRating\obj\Debug\DifficultyRating.Lection2.Lection2.resources
+C:\Visual Sudio Pojects\DiffRating\DifficultyRating\obj\Debug\DifficultyRating.Lection2.Lection2.resources
+C:\Visual Sudio Pojects\DiffRating\DifficultyRating\obj\Debug\DifficultyRating.DiffRatingProgramm.resources

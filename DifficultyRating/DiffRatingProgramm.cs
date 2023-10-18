@@ -10,23 +10,7 @@ using System.Windows.Forms;
 
 namespace DifficultyRating
 {
-    public class DifficulityRate
-    {
-        public DifficulityRate()
-        {
-            operationsCount = 0;
-            totalTime = 0;
-        }
-        public static DifficulityRate operator +(DifficulityRate diff1, DifficulityRate diff2)
-        {
-            DifficulityRate newDiff = new DifficulityRate();
-            newDiff.operationsCount = diff1.operationsCount + diff2.operationsCount;
-            newDiff.totalTime = diff1.totalTime + diff2.totalTime;
-            return newDiff;
-        }
-        public int operationsCount { get; set; }
-        public int totalTime { get; set; }
-    }
+    
     public partial class DiffRatingProgramm : Form
     {
         public DiffRatingProgramm()
@@ -47,5 +31,22 @@ namespace DifficultyRating
             DifficultyRating.Lection2.Lection2 form = new DifficultyRating.Lection2.Lection2();
             form.ShowDialog();
         }
+    }
+    public class DifficulityRate
+    {
+        public DifficulityRate()
+        {
+            operationsCount = 0;
+            totalTime = 0;
+        }
+        public static DifficulityRate operator +(DifficulityRate diff1, DifficulityRate diff2)
+        {
+            DifficulityRate newDiff = new DifficulityRate();
+            newDiff.operationsCount = diff1.operationsCount + diff2.operationsCount;
+            newDiff.totalTime = diff1.totalTime + diff2.totalTime;
+            return newDiff;
+        }
+        public int operationsCount { get; set; }
+        public int totalTime { get; set; }
     }
 }
