@@ -62,6 +62,9 @@
     <Compile Include="GraphsThing\GraphsForm.Designer.cs">
       <DependentUpon>GraphsForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="GraphsThing\SimpleGraph.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Lection1\BinaryTree.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -96,6 +99,9 @@
     </Compile>
     <EmbeddedResource Include="DiffRatingProgramm.resx">
       <DependentUpon>DiffRatingProgramm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GraphsThing\GraphsForm.resx">
+      <DependentUpon>GraphsForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Lection1\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>

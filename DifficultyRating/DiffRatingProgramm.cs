@@ -31,6 +31,12 @@ namespace DifficultyRating
             DifficultyRating.Lection2.Lection2 form = new DifficultyRating.Lection2.Lection2();
             form.ShowDialog();
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            DifficultyRating.GraphsThing.GraphsForm form = new GraphsThing.GraphsForm();
+            form.ShowDialog();
+        }
     }
     public class DifficulityRate
     {
