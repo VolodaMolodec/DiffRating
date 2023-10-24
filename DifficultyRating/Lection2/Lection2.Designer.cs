@@ -58,6 +58,7 @@
             "- Нет -",
             "Умножение в столбик",
             "Разделяй и влавствуй",
+            "Медиана Случайная",
             "Дерево со случайным ветвлением"});
             this.graphSelectComboBox1.Location = new System.Drawing.Point(29, 5);
             this.graphSelectComboBox1.Name = "graphSelectComboBox1";

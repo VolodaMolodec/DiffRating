@@ -22,6 +22,7 @@ namespace DifficultyRating.Lection2
         private List<PointPairList> points = new List<PointPairList>()
         {
             new PointPairList(),
+            new PointPairList(),
             new PointPairList()
         };
 
@@ -29,7 +30,7 @@ namespace DifficultyRating.Lection2
         {
             GraphPane pane = zedGraphControl.GraphPane;
             pane.CurveList.Clear();
-            if (graphSelectComboBox1.SelectedIndex == 3 || graphSelectComboBox2.SelectedIndex == 3) 
+            if (graphSelectComboBox1.SelectedIndex == 4 || graphSelectComboBox2.SelectedIndex == 4) 
             {
                 coefficientTextBox.Visible = true;
                 graphSelectComboBox2.Visible = false;
@@ -74,6 +75,13 @@ namespace DifficultyRating.Lection2
                 int b = rnd.Next((int)Math.Pow(10, x - 1), (int)Math.Pow(10, x)); ;
                 points[0].Add(x, ColumnMult(a, b).operationsCount);
                 points[1].Add(x, CoolMult(a, b).operationsCount);
+            }
+            for(int i = 0; i <= 10; i++)
+            {
+                List<int> arr = new List<int>();
+                for (int j = 0; j < i;  j++)
+                    arr.Add(rnd.Next(0,100));
+                points[2].Add(i, RandomMedianDiff(arr).operationsCount);
             }
         }
     }

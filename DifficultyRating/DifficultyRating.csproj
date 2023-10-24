@@ -56,6 +56,12 @@
     <Compile Include="DiffRatingProgramm.Designer.cs">
       <DependentUpon>DiffRatingProgramm.cs</DependentUpon>
     </Compile>
+    <Compile Include="GraphsThing\GraphsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GraphsThing\GraphsForm.Designer.cs">
+      <DependentUpon>GraphsForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Lection1\BinaryTree.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -73,6 +79,9 @@
     </Compile>
     <Compile Include="Lection2\Lection2.Designer.cs">
       <DependentUpon>Lection2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Lection2\Median.cs">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="Lection2\Multiply.cs">
       <SubType>Form</SubType>
