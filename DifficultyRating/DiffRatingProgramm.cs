@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ZedGraph;
 
 namespace DifficultyRating
 {
@@ -53,6 +54,20 @@ namespace DifficultyRating
             return newDiff;
         }
         public int operationsCount { get; set; }
-        public int totalTime { get; set; }
+        public long totalTime { get; set; }
+    }
+
+    public class DifficultyGraph
+    {
+        public PointPairList OperationsCountGraph = new PointPairList();
+        public PointPairList ExecutionTimeGraph = new PointPairList();
+        public PointPairList GetGraph(int mode)
+        {
+            if (mode == 0)
+                return OperationsCountGraph;
+            else
+                return ExecutionTimeGraph;
+        }
+
     }
 }
