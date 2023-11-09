@@ -62,6 +62,9 @@
     <Compile Include="GraphsThing\GraphsForm.Designer.cs">
       <DependentUpon>GraphsForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="GraphsThing\OrientedGraph.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="GraphsThing\SimpleGraph.cs">
       <SubType>Form</SubType>
     </Compile>

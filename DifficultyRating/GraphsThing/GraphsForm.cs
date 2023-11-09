@@ -17,101 +17,78 @@ namespace DifficultyRating.GraphsThing
         public GraphsForm()
         {
             InitializeComponent();
-            dataGridView1.RowCount = 1;
-            graph_table = new Graph_Table();
-            graph_array = new Graph_Arrays();
-            graph_list = new Graph_List();
+            initialazed = false;
         }
 
-        Graph_Table graph_table;
-        Graph_Arrays graph_array;
-        Graph_List graph_list;
-
+        int totalFunctions = 3;
+        bool initialazed;
         List<DifficultyGraph> graph = new List<DifficultyGraph>();
 
         private void GraphSelectComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (!initialazed)
+            {
+                InitGraph();
+                initialazed = true;
+            }
+                
             if (graphShowModeComboBox.SelectedIndex == -1 || GraphSelectComboBox.SelectedIndex == -1)
                 return;
             GraphPane pane = zedGraphControl1.GraphPane;
             pane.CurveList.Clear();
-            switch(GraphSelectComboBox.SelectedIndex) 
-            {
-                case 0:
-                    LineItem curve = pane.AddCurve("График",
-                        graph[0].GetGraph(graphShowModeComboBox.SelectedIndex), 
+            pane.AddCurve("График",
+                        graph[GraphSelectComboBox.SelectedIndex].GetGraph(graphShowModeComboBox.SelectedIndex), //Получаем нужный граф
                         Color.Blue, SymbolType.None);
-                    break;
-            }
             zedGraphControl1.AxisChange();
             zedGraphControl1.Invalidate();
         }
 
-        private void dataGridView1_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
+        void InitGraph() //Проводим замеры по времени
         {
-            if (dataGridView1.RowCount <= 1)
-                dataGridView1.ColumnCount = 1;
-            else
-                dataGridView1.ColumnCount = dataGridView1.RowCount - 1;
-        }
+            OrientedGraph orientedGraph = new OrientedGraph();
+            Graph_Table graph_table = new Graph_Table();
+            Graph_Arrays graph_array = new Graph_Arrays();
+            graph = new List<DifficultyGraph>();
+            for(int i = 0; i < totalFunctions; i++)
+                graph.Add(new DifficultyGraph());
 
-        private void dataGridView1_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
-        {
-            if (dataGridView1.RowCount <= 1)
-                dataGridView1.ColumnCount = 1;
-            else
-                dataGridView1.ColumnCount = dataGridView1.RowCount - 1;
-        }
-
-        void InitGraph()    //Инициализация и отображение графа. Вызыватся после генерации графа
-        {
-            int n = graph_table.table.Count;    //n - размер таблицы. Количество строк = количество колонн
-            dataGridView1.ColumnCount = n + 1;
-            dataGridView1.RowCount = n + 1;
-            for (int y = 0; y < n; y++)
-                for (int x = 0; x < n; x++)
-                    dataGridView1[y, x].Value = graph_table.table[y][x];
-
-            /* Поиск в глубину */
-            DifficultyGraph currGraphs = new DifficultyGraph();
-            for(int x = 1; x < 50; x++)
+            for(int x = 1; x < 50; x++) //проводим замеры для более быстрых алгоритмов
             {
                 graph_table = CreateAmazingFULLGraph(x);
                 graph_array.Set(graph_table);
-                DifficulityRate diff = new DifficulityRate();
-                for (int i = 0; i < 5; i++)
-                     diff += graph_array.DeepSearch();
-                diff.operationsCount /= 5;
-                diff.totalTime /= 5;
-                currGraphs.OperationsCountGraph.Add(x, diff.operationsCount);
-                currGraphs.ExecutionTimeGraph.Add(x, diff.totalTime);
+                orientedGraph.Init(x);
+                List<DifficulityRate> diffs = new List<DifficulityRate>();
+                for (int i = 0; i < totalFunctions; i++)
+                    diffs.Add(new DifficulityRate());
+                for (int i = 0; i < 10; i++)
+                {
+                    diffs[0] += graph_array.Search("Deep");
+                    diffs[1] += graph_array.Search("Breadth");
+                }
+                for (int i = 0; i < totalFunctions - 1; i++)
+                {
+                    diffs[i].operationsCount /= 10;
+                    diffs[i].totalTime /= 10;
+                }
+                for (int i = 0; i < totalFunctions - 1; i++)
+                {
+                    graph[i].OperationsCountGraph.Add(x, diffs[i].operationsCount);
+                    graph[i].ExecutionTimeGraph.Add(x, diffs[i].totalTime);
+                }
             }
-            graph.Add(currGraphs);
-
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            graph_table.table.Clear();
-            int n;
-            if (graphSizeTexBox.Text == "")
-                n = 2;
-            else
-                n = Int32.Parse(graphSizeTexBox.Text);
-            graph_table = CreateAmazingFULLGraph(n);
-            InitGraph();
-        }
-
-        private void PartGraphGenerateButton_Click(object sender, EventArgs e)
-        {
-            graph_table.table.Clear();
-            int n;
-            if (graphSizeTexBox.Text == "")
-                n = 2;
-            else
-                n = Int32.Parse(graphSizeTexBox.Text);
-            graph_table = CreateAmazinPARTGraph(n);
-            InitGraph();
+            for (int x = 1; x < 10; x++)    //Проводим замеры для более медленных алгоритмов
+            {
+                orientedGraph.Init(x);
+                DifficulityRate diff = new DifficulityRate();
+                for (int i = 0; i < 10; i++)
+                {
+                    diff += orientedGraph.Search("Recurs");
+                }
+                diff.operationsCount /= 10;
+                diff.totalTime /= 10;
+                graph[2].OperationsCountGraph.Add(x, diff.operationsCount);
+                graph[2].ExecutionTimeGraph.Add(x, diff.totalTime);
+            }
         }
     }
 }

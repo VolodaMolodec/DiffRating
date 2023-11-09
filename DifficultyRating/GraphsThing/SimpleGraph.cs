@@ -1,5 +1,6 @@
 ﻿using System;
 using System.CodeDom;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -8,19 +9,21 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 namespace DifficultyRating.GraphsThing
 {
+    
     public partial class GraphsForm : Form
     {
         class Graph_Arrays
         {
-            class Vertex
+            private class Vertex
             {
                 public List<Edge> edges = new List<Edge>();
                 public bool isVisited = false;
                 public int id;
             }
-            class Edge
+            private class Edge
             {
                 public Vertex vertex1;
                 public Vertex vertex2;
@@ -52,24 +55,51 @@ namespace DifficultyRating.GraphsThing
                 }     
             }
 
-            public DifficulityRate DeepSearch() //Алгоритм поиска в глубину
+            public DifficulityRate Search(string name)
             {
                 DifficulityRate diff = new DifficulityRate();
                 Stopwatch watch = new Stopwatch();
                 watch.Start();
                 foreach (var vert in vertices)  //Обнуляем данные о посещении вершин
                     vert.isVisited = false;
-                Random rnd = new Random();
-                List<Vertex> stack = new List<Vertex>();    //Стэк для хранения порядка проверки вершин
-                stack.Add(vertices[rnd.Next(0, vertices.Count)]); //Берём случайную начальную вершину
-                while(stack.Count != 0)
+                DateTime dateTime = new DateTime();
+                Random rnd = new Random((int)dateTime.Ticks);
+                var goalVert = vertices[rnd.Next(0, vertices.Count)];   //Конечная вершина
+                switch(name)    //В зависимости от названия вызываем соответствующую сортировку
+                {
+                    case "Deep":
+                        List<Vertex> stack = new List<Vertex>
+                        {
+                            vertices[rnd.Next(0, vertices.Count)]
+                        };
+                        diff = DeepSearch(stack, goalVert);
+                        break;
+                    case "Breadth":
+                        List<Vertex> queue = new List<Vertex>
+                        {
+                            vertices[rnd.Next(0, vertices.Count)]
+                        };
+                        diff = BreadthSearch(queue, goalVert);
+                        break;
+                }
+                watch.Stop();
+                diff.totalTime = watch.ElapsedTicks;
+                return diff;
+            }
+
+            private DifficulityRate DeepSearch(List<Vertex> stack, Vertex goalVert) //Алгоритм поиска в глубину
+            {
+                DifficulityRate diff = new DifficulityRate(); 
+                while (stack.Count != 0)
                 {
                     diff.operationsCount++;
                     Vertex currentVert = stack[0];
                     currentVert.isVisited = true;
                     path.Add(currentVert.id);   //Добавляем id вершины в список пройденного пути
                     stack.RemoveAt(0);
-                    foreach(var edge in currentVert.edges)  //Проходим по всем граням, связанным с вершиной
+                    if (currentVert == goalVert)    //Если текущая вершина совпадает с конечной, то останавливаемся
+                        break;
+                    foreach (var edge in currentVert.edges)  //Проходим по всем граням, связанным с вершиной
                     {                                       //и добавляем в стек все непройденные вершины
                         if (edge.vertex1 != currentVert && !edge.vertex1.isVisited && !stack.Contains(edge.vertex1))
                             stack.Insert(0, edge.vertex1);
@@ -77,8 +107,27 @@ namespace DifficultyRating.GraphsThing
                             stack.Insert(0, edge.vertex2);
                     }
                 }
-                watch.Stop();
-                diff.totalTime = watch.ElapsedTicks;
+                return diff;
+            }
+            private DifficulityRate BreadthSearch(List<Vertex> queue, Vertex goalVert)
+            {
+                DifficulityRate diff = new DifficulityRate();
+                while( queue.Count != 0 )
+                {
+                    diff.operationsCount++;
+                    Vertex currentVert = queue[0];
+                    currentVert.isVisited = true;
+                    queue.RemoveAt(0);
+                    if (currentVert == goalVert)    //Если текущая вершина совпадает с конечной, то останавливаемся
+                        break;
+                    foreach (var edge in currentVert.edges)  //Проходим по всем граням, связанным с вершиной
+                    {                                       //и добавляем в стек все непройденные вершины
+                        if (edge.vertex1 != currentVert && !edge.vertex1.isVisited && !queue.Contains(edge.vertex1))
+                            queue.Add(edge.vertex1);
+                        else if (edge.vertex2 != currentVert && !edge.vertex2.isVisited && !queue.Contains(edge.vertex2))
+                            queue.Add(edge.vertex2);
+                    }
+                }
                 return diff;
             }
         }

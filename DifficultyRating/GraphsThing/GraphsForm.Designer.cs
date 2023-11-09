@@ -31,14 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.zedGraphControl1 = new ZedGraph.ZedGraphControl();
             this.GraphSelectComboBox = new System.Windows.Forms.ComboBox();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.FullGraphGenerateButton = new System.Windows.Forms.Button();
-            this.graphSizeTexBox = new System.Windows.Forms.TextBox();
-            this.pathTextBox = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.PartGraphGenerateButton = new System.Windows.Forms.Button();
             this.graphShowModeComboBox = new System.Windows.Forms.ComboBox();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // zedGraphControl1
@@ -60,66 +53,14 @@
             // 
             this.GraphSelectComboBox.FormattingEnabled = true;
             this.GraphSelectComboBox.Items.AddRange(new object[] {
-            "Поиск в глубину"});
+            "Поиск в глубину",
+            "Поиск в ширину",
+            "Рекурсия ориентированный граф"});
             this.GraphSelectComboBox.Location = new System.Drawing.Point(12, 10);
             this.GraphSelectComboBox.Name = "GraphSelectComboBox";
             this.GraphSelectComboBox.Size = new System.Drawing.Size(138, 21);
             this.GraphSelectComboBox.TabIndex = 2;
             this.GraphSelectComboBox.SelectedIndexChanged += new System.EventHandler(this.GraphSelectComboBox_SelectedIndexChanged);
-            // 
-            // dataGridView1
-            // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(473, 61);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(476, 338);
-            this.dataGridView1.TabIndex = 3;
-            this.dataGridView1.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.dataGridView1_RowsAdded);
-            this.dataGridView1.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.dataGridView1_RowsRemoved);
-            // 
-            // FullGraphGenerateButton
-            // 
-            this.FullGraphGenerateButton.Location = new System.Drawing.Point(473, 5);
-            this.FullGraphGenerateButton.Name = "FullGraphGenerateButton";
-            this.FullGraphGenerateButton.Size = new System.Drawing.Size(134, 21);
-            this.FullGraphGenerateButton.TabIndex = 4;
-            this.FullGraphGenerateButton.Text = "Сген. полный граф";
-            this.FullGraphGenerateButton.UseVisualStyleBackColor = true;
-            this.FullGraphGenerateButton.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // graphSizeTexBox
-            // 
-            this.graphSizeTexBox.Location = new System.Drawing.Point(620, 13);
-            this.graphSizeTexBox.Name = "graphSizeTexBox";
-            this.graphSizeTexBox.Size = new System.Drawing.Size(78, 20);
-            this.graphSizeTexBox.TabIndex = 5;
-            this.graphSizeTexBox.Text = "5";
-            // 
-            // pathTextBox
-            // 
-            this.pathTextBox.Location = new System.Drawing.Point(819, 10);
-            this.pathTextBox.Name = "pathTextBox";
-            this.pathTextBox.Size = new System.Drawing.Size(121, 20);
-            this.pathTextBox.TabIndex = 6;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(717, 13);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(96, 13);
-            this.label1.TabIndex = 7;
-            this.label1.Text = "Пройденный путь";
-            // 
-            // PartGraphGenerateButton
-            // 
-            this.PartGraphGenerateButton.Location = new System.Drawing.Point(473, 32);
-            this.PartGraphGenerateButton.Name = "PartGraphGenerateButton";
-            this.PartGraphGenerateButton.Size = new System.Drawing.Size(134, 21);
-            this.PartGraphGenerateButton.TabIndex = 8;
-            this.PartGraphGenerateButton.Text = "Сген. разр. граф";
-            this.PartGraphGenerateButton.UseVisualStyleBackColor = true;
-            this.PartGraphGenerateButton.Click += new System.EventHandler(this.PartGraphGenerateButton_Click);
             // 
             // graphShowModeComboBox
             // 
@@ -137,21 +78,13 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(972, 415);
+            this.ClientSize = new System.Drawing.Size(473, 415);
             this.Controls.Add(this.graphShowModeComboBox);
-            this.Controls.Add(this.PartGraphGenerateButton);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.pathTextBox);
-            this.Controls.Add(this.graphSizeTexBox);
-            this.Controls.Add(this.FullGraphGenerateButton);
-            this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.GraphSelectComboBox);
             this.Controls.Add(this.zedGraphControl1);
             this.Name = "GraphsForm";
             this.Text = "GraphsForm";
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -159,12 +92,6 @@
 
         private ZedGraph.ZedGraphControl zedGraphControl1;
         private System.Windows.Forms.ComboBox GraphSelectComboBox;
-        private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.Button FullGraphGenerateButton;
-        private System.Windows.Forms.TextBox graphSizeTexBox;
-        private System.Windows.Forms.TextBox pathTextBox;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button PartGraphGenerateButton;
         private System.Windows.Forms.ComboBox graphShowModeComboBox;
     }
 }
