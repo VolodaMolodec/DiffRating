@@ -31,7 +31,7 @@ namespace DifficultyRating.GraphsThing
 
             List<Vertex> vertices = new List<Vertex>();
             List<Edge> edges = new List<Edge>();
-            public List<int> path = new List<int>();    //Список, в котором хранится пройденный путь в алгоритмах поиска
+            public string path;    //Список, в котором хранится пройденный путь в алгоритмах поиска
             public void Set(Graph_Table graph)   //Преобразование графа из матрицы смежности  
             {
                 vertices.Clear();
@@ -60,6 +60,7 @@ namespace DifficultyRating.GraphsThing
                 DifficulityRate diff = new DifficulityRate();
                 Stopwatch watch = new Stopwatch();
                 watch.Start();
+                path = ""; //Обнуляем путь
                 foreach (var vert in vertices)  //Обнуляем данные о посещении вершин
                     vert.isVisited = false;
                 DateTime dateTime = new DateTime();
@@ -95,7 +96,7 @@ namespace DifficultyRating.GraphsThing
                     diff.operationsCount++;
                     Vertex currentVert = stack[0];
                     currentVert.isVisited = true;
-                    path.Add(currentVert.id);   //Добавляем id вершины в список пройденного пути
+                    path += currentVert.id.ToString();   //Добавляем id вершины в список пройденного пути
                     stack.RemoveAt(0);
                     if (currentVert == goalVert)    //Если текущая вершина совпадает с конечной, то останавливаемся
                         break;
@@ -117,6 +118,7 @@ namespace DifficultyRating.GraphsThing
                     diff.operationsCount++;
                     Vertex currentVert = queue[0];
                     currentVert.isVisited = true;
+                    path += currentVert.id.ToString();
                     queue.RemoveAt(0);
                     if (currentVert == goalVert)    //Если текущая вершина совпадает с конечной, то останавливаемся
                         break;
@@ -176,7 +178,7 @@ namespace DifficultyRating.GraphsThing
             return graph;
         }
 
-        private Graph_Table CreateAmazinPARTGraph(int iput)
+        private Graph_Table CreateAmazingPARTGraph(int iput)
         {
             List<List<int>> list = new List<List<int>>();
             Random rnd = new Random();
