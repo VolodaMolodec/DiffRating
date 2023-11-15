@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Reflection;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -54,7 +55,7 @@ namespace DifficultyRating.GraphsThing
 
             for(int x = 1; x < 50; x++) //проводим замеры для более быстрых алгоритмов
             {
-                graph_table = CreateAmazingFULLGraph(x);
+                graph_table.GenerateFullGraph(x);
                 graph_array.Set(graph_table);
                 orientedGraph.Init(x);
                 List<DifficulityRate> diffs = new List<DifficulityRate>();
@@ -93,11 +94,28 @@ namespace DifficultyRating.GraphsThing
 
         private void testComboBox_SelectedIndexChanged(object sender, EventArgs e) //ПОдготовка к тестам
         {
-            if (testComboBox.SelectedIndex == 1 || testComboBox.SelectedIndex == 2)
+            if (testComboBox.SelectedIndex == 0 || testComboBox.SelectedIndex == 1) //Генерируем нужный граф и выводим его
             {
-                Graph_Table table = new Graph_Table();
-                table = CreateAmazingFULLGraph(8);
+                Graph_Table testTable = new Graph_Table();
+                testTable.GenerateFullGraph(8);
+                List<List<int>> table = testTable.table;
+                DrawTable(table);
             }
+            else
+            {
+                OrientedGraph testGraph = new OrientedGraph();
+                testGraph.Init(8);
+                DrawTable(testGraph.GetTable());
+            }
+        }
+
+        private void DrawTable(List<List<int>> table)
+        {
+            graphGridView.RowCount = table.Count + 1;
+            graphGridView.ColumnCount = table.Count + 1;
+            for (int y = 0; y < table.Count; y++)
+                for (int x = 0; x < table.Count; x++)
+                    graphGridView[y, x].Value = table[y][x].ToString();
         }
 
         private List<List<int>> readTable() //Чтение данных из таблицы и представление их в удобной форме

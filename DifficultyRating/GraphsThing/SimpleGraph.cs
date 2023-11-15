@@ -63,8 +63,8 @@ namespace DifficultyRating.GraphsThing
                 path = ""; //Обнуляем путь
                 foreach (var vert in vertices)  //Обнуляем данные о посещении вершин
                     vert.isVisited = false;
-                DateTime dateTime = new DateTime();
-                Random rnd = new Random((int)dateTime.Ticks);
+                //DateTime dateTime = new DateTime();
+                Random rnd = new Random();//(int)dateTime.Ticks);
                 var goalVert = vertices[rnd.Next(0, vertices.Count)];   //Конечная вершина
                 switch(name)    //В зависимости от названия вызываем соответствующую сортировку
                 {
@@ -145,6 +145,22 @@ namespace DifficultyRating.GraphsThing
                 this.table = table;
             }
             public List<List<int>> table;
+
+            public void GenerateFullGraph(int size)
+            {
+                table = new List<List<int>>();
+                for (int y = 0; y < size; y++)
+                {
+                    table.Add(new List<int>());
+                    for (int x = 0; x < size; x++)
+                    {
+                        if (y != x)
+                            table[y].Add(1);
+                        else
+                            table[y].Add(0);
+                    }
+                }
+            }
         }
 
         class Graph_List
@@ -158,24 +174,6 @@ namespace DifficultyRating.GraphsThing
                     lists.Add(iter);
                 }
             }
-        }
-
-        private Graph_Table CreateAmazingFULLGraph(int inputtttttttt)
-        {
-            List<List<int>> list = new List<List<int>>();
-            for(int y = 0; y < inputtttttttt; y++)
-            {
-                list.Add(new List<int>());
-                for(int x = 0; x < inputtttttttt; x++)
-                {
-                    if (y != x)
-                        list[y].Add(1);
-                    else
-                        list[y].Add(0);
-                }
-            }
-            Graph_Table graph = new Graph_Table(list);
-            return graph;
         }
 
         private Graph_Table CreateAmazingPARTGraph(int iput)
