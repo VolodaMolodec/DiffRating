@@ -88,7 +88,7 @@ namespace DifficultyRating.GraphsThing
                     for(int x = 0; x < N; x++) 
                     {
                         if (x == y)
-                            table[y].Add(0);
+                            table[y].Add(0);                         
                         int val = 0;
                         if (currVert.edges[x].outVert == currVert)  //Если ребро выходит из вершины, то в таблице значение веса будет положительно, иначе отрицательно
                             val = currVert.edges[x].value;
