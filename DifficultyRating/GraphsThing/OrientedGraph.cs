@@ -13,6 +13,44 @@ namespace DifficultyRating.GraphsThing
     {
         class OrientedGraph
         {
+            public OrientedGraph()
+            {
+                vertices = new List<Vertex>();
+                edges = new List<OrientedEdge>();
+                path = "";
+                sum = 0;
+            }
+            public OrientedGraph(List<List<int>> table) //Создаём ориентированный граф из таблицы
+            {
+                vertices = new List<Vertex>();
+                edges = new List<OrientedEdge>();
+                path = "";
+                sum = 0;
+                for (int y = 0; y < table.Count; y++)   //Проходим по таблице
+                {
+                    vertices.Add(new Vertex());
+                    var currVert = vertices[y];
+                    currVert.id = y + 1;
+                    for(int x = 0; x < y; x++)
+                    {
+                        OrientedEdge edge = new OrientedEdge();
+                        if (table[y][x] > 0)    //Если значение положительно, то ребро исходит из текущей вершины, инае входит в текущую вершину
+                        {
+                            edge.inVert = currVert;
+                            edge.outVert = vertices[x];
+                        }
+                        else
+                        {
+                            edge.outVert = currVert;
+                            edge.inVert = vertices[x];
+                        }
+                        edge.value = Math.Abs(table[y][x]);
+                        currVert.edges.Add(edge);
+                        vertices[x].edges.Add(edge);
+                        edges.Add(edge);
+                    }
+                }
+            }
             private class Vertex
             {
                 public int id;
@@ -32,12 +70,7 @@ namespace DifficultyRating.GraphsThing
             public int sum; //Хранит минимальную сумму пройденного пути
             public void Init(int N) //Создание ориентированного взвешенного графа.
             {
-                while(true)
-                {
-                    Generate(N);
-                    if(CheckForCycles())
-                        break;
-                }
+                Generate(N);    //Тут должен был быть код, но он исчез
             }
             private void Generate(int N)    //Генерируем вершины и рёбра
             {
@@ -52,7 +85,7 @@ namespace DifficultyRating.GraphsThing
                     for(int j = 0; j < vertices.Count; j++)
                     {
                         OrientedEdge edge = new OrientedEdge();
-                        edge.value = rnd.Next(0, 100);  //Генерируем вес ребра
+                        edge.value = rnd.Next(0, 10);  //Генерируем вес ребра
                         if (rnd.Next(0, 2) == 0)    //генерируем ориентацию ребра
                         {
                             edge.outVert = newVert;
@@ -72,20 +105,14 @@ namespace DifficultyRating.GraphsThing
                 }
             }
 
-            private bool CheckForCycles()   //Проверяет на наличие циклов. Возвращает 1, если циклы есть и 0 в обратном случае
-            {
-                return true;
-            }
-
             public List<List<int>> GetTable()   //Возвращает таблицу, представляющую граф
             {
                 List<List<int>> table = new List<List<int>>();
-                int N = vertices.Count;
-                for (int y = 0; y < N; y++)
+                for (int y = 0; y < vertices.Count; y++)
                 {
                     table.Add(new List<int>());
                     Vertex currVert = vertices[y];
-                    for(int x = 0; x < N; x++) 
+                    for(int x = 0; x < currVert.edges.Count; x++) 
                     {
                         if (x == y)
                             table[y].Add(0);                         
@@ -97,6 +124,7 @@ namespace DifficultyRating.GraphsThing
                         table[y].Add(val);
                     }
                 }
+                table[table.Count - 1].Add(0);  //Нужно, чтобы прога не сломалась
                 return table;
             }
 
@@ -104,7 +132,7 @@ namespace DifficultyRating.GraphsThing
             {
                 diff = new DifficulityRate();
                 Stopwatch watch = new Stopwatch();
-                Random rnd = new Random((int)new DateTime().Ticks);
+                Random rnd = new Random();
                 Vertex goalVert = vertices[rnd.Next(0, vertices.Count)];
                 Vertex startVert = vertices[rnd.Next(0, vertices.Count)];
                 watch.Start();
@@ -121,12 +149,13 @@ namespace DifficultyRating.GraphsThing
                 return diff;
             }
 
-            private Tuple<int,string> RecursFindPath(Vertex currVert, Vertex goalVert, int depth = 0, string path = "") //Рекурсивный поиск пути
+            private Tuple<int,string> RecursFindPath(Vertex currVert, Vertex goalVert, int depth = 0) //Рекурсивный поиск пути
             {   
                 if (depth > vertices.Count) //Если глубина рекурсии больше кол-ва вершин, то программа идёт по кругу
                     return new Tuple<int,string>(-1, "");
                 else if (currVert == goalVert)
-                    return new Tuple<int,string>(0, path + currVert.id.ToString());
+                    return new Tuple<int,string>(0, currVert.id.ToString());
+
                 List<OrientedEdge> nextEdges = new List<OrientedEdge>(); //Список рёбер, по которым можно пройти
                 foreach(var edge in currVert.edges)
                     if (edge.inVert != currVert)    //Проверяем, можно ли по ребру перейти в следующую вершину. Если да, то добавляем это ребро
@@ -137,7 +166,6 @@ namespace DifficultyRating.GraphsThing
                 foreach(var edge in nextEdges)
                 {
                     diff.operationsCount++;
-                    path += currVert.id.ToString();
                     var result = RecursFindPath(edge.inVert, goalVert, depth + 1);
                     if (result.Item1 != -1)   //Если нашли вершину, то сравниваем сумму веса
                     {
@@ -150,7 +178,7 @@ namespace DifficultyRating.GraphsThing
                     }
                 }
 
-                return new Tuple<int,string>(valSum,minPath);
+                return new Tuple<int,string>(valSum, currVert.id.ToString() + minPath);
             }
         }
 

@@ -40,6 +40,8 @@
             this.testOperationCountLabel = new System.Windows.Forms.Label();
             this.testTimeLabel = new System.Windows.Forms.Label();
             this.testStartButton = new System.Windows.Forms.Button();
+            this.graphGenerateButton = new System.Windows.Forms.Button();
+            this.graphSizeTextBox = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.graphGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -64,6 +66,8 @@
             this.GraphSelectComboBox.Items.AddRange(new object[] {
             "Поиск в глубину",
             "Поиск в ширину",
+            "Дерево минимальных расстояний",
+            "Дийкстра",
             "Рекурсия ориентированный граф"});
             this.GraphSelectComboBox.Location = new System.Drawing.Point(12, 10);
             this.GraphSelectComboBox.Name = "GraphSelectComboBox";
@@ -106,7 +110,9 @@
             this.testComboBox.Items.AddRange(new object[] {
             "Поиск в глубину",
             "Поиск в ширину",
-            "Рекурсия ориентированный граф"});
+            "Рекурсия ориентированный граф",
+            "Дерево минимальных расстояний",
+            "Дийкстра"});
             this.testComboBox.Location = new System.Drawing.Point(468, 23);
             this.testComboBox.Name = "testComboBox";
             this.testComboBox.Size = new System.Drawing.Size(127, 21);
@@ -158,11 +164,31 @@
             this.testStartButton.UseVisualStyleBackColor = true;
             this.testStartButton.Click += new System.EventHandler(this.testStartButton_Click);
             // 
+            // graphGenerateButton
+            // 
+            this.graphGenerateButton.Location = new System.Drawing.Point(821, 92);
+            this.graphGenerateButton.Name = "graphGenerateButton";
+            this.graphGenerateButton.Size = new System.Drawing.Size(44, 36);
+            this.graphGenerateButton.TabIndex = 19;
+            this.graphGenerateButton.Text = "Gen";
+            this.graphGenerateButton.UseVisualStyleBackColor = true;
+            this.graphGenerateButton.Click += new System.EventHandler(this.graphGenerateButton_Click);
+            // 
+            // graphSizeTextBox
+            // 
+            this.graphSizeTextBox.Location = new System.Drawing.Point(821, 134);
+            this.graphSizeTextBox.Name = "graphSizeTextBox";
+            this.graphSizeTextBox.Size = new System.Drawing.Size(44, 20);
+            this.graphSizeTextBox.TabIndex = 20;
+            this.graphSizeTextBox.Text = "8";
+            // 
             // GraphsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(877, 415);
+            this.Controls.Add(this.graphSizeTextBox);
+            this.Controls.Add(this.graphGenerateButton);
             this.Controls.Add(this.testStartButton);
             this.Controls.Add(this.testTimeLabel);
             this.Controls.Add(this.testOperationCountLabel);
@@ -195,5 +221,7 @@
         private System.Windows.Forms.Label testOperationCountLabel;
         private System.Windows.Forms.Label testTimeLabel;
         private System.Windows.Forms.Button testStartButton;
+        private System.Windows.Forms.Button graphGenerateButton;
+        private System.Windows.Forms.TextBox graphSizeTextBox;
     }
 }

@@ -68,6 +68,9 @@
     <Compile Include="GraphsThing\SimpleGraph.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="GraphsThing\WeightGraph.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Lection1\BinaryTree.cs">
       <SubType>Form</SubType>
     </Compile>
