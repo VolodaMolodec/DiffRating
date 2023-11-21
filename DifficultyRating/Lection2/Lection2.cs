@@ -23,6 +23,7 @@ namespace DifficultyRating.Lection2
         {
             new PointPairList(),
             new PointPairList(),
+            new PointPairList(),
             new PointPairList()
         };
 
@@ -66,22 +67,25 @@ namespace DifficultyRating.Lection2
         private void button1_Click(object sender, EventArgs e)
         {
             Random rnd = new Random();
-            int xmax = 10;
+            int xmax = 7;
             points[0].Add(0, 0);
             points[1].Add(0, 0);
+            points[2].Add(0, 0);
             for (int x = 1; x < xmax; x++)
             {
+                CoolMult coolMult = new CoolMult(x);
                 int a = rnd.Next((int)Math.Pow(10, x - 1), (int)Math.Pow(10, x));
                 int b = rnd.Next((int)Math.Pow(10, x - 1), (int)Math.Pow(10, x)); ;
                 points[0].Add(x, ColumnMult(a, b).operationsCount);
-                points[1].Add(x, CoolMult(a, b).operationsCount);
+                points[1].Add(x, NaiveRecur(a, b).Item2.operationsCount);
+                points[2].Add(x, coolMult.Mult(a, b).Item2.operationsCount);
             }
             for(int i = 0; i <= 10; i++)
             {
                 List<int> arr = new List<int>();
                 for (int j = 0; j < i;  j++)
                     arr.Add(rnd.Next(0,100));
-                points[2].Add(i, RandomMedianDiff(arr).operationsCount);
+                points[3].Add(i, RandomMedianDiff(arr).operationsCount);
             }
         }
     }
