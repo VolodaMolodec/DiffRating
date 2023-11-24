@@ -22,6 +22,7 @@ namespace DifficultyRating.GraphsThing
                 public int id;
                 public string minPath = "";  //Хранит минимальный путь до вершины
                 public int minPathVal = -1;  //Вес минимального пути
+                public int priority = 0;    //Приоритет в PriorityQueue
             }
             private class Edge
             {
@@ -60,6 +61,9 @@ namespace DifficultyRating.GraphsThing
                         newVert.edges.Add(edge);
                         vertices[x].edges.Add(edge.Reverse());
                     }
+                    foreach(Edge edge in newVert.edges)
+                        newVert.priority += edge.value;
+                    newVert.priority /= newVert.edges.Count;
                 }
             }
 
@@ -213,6 +217,43 @@ namespace DifficultyRating.GraphsThing
                     }
                 }
 
+                return new Tuple<string, DifficulityRate>(path, diff);
+            }
+
+            Tuple<string, DifficulityRate> PriorityQueue(Vertex goalVert)
+            {
+                DifficulityRate diff = new DifficulityRate();
+                string path = "";
+                List<Vertex> priorityQueue = new List<Vertex>
+                {
+                    vertices[0]
+                };
+                while (priorityQueue.Count != 0)
+                {
+                    diff.operationsCount++;
+                    var currVert = priorityQueue[0];
+                    priorityQueue.RemoveAt(0);
+                    currVert.isVisited = true;
+
+                    foreach (var edge in currVert.edges)
+                    {
+                        diff.operationsCount++;
+                        if (!edge.vertex2.isVisited)   //Добавляем те вершины, в которые мы ещё не зашли
+                        {
+                            if (!priorityQueue.Contains(edge.vertex2))
+                            {
+                                for(int i = 0; i < priorityQueue.Count; i++)
+                                {
+                                    if (priorityQueue[i].priority < currVert.priority)
+                                    {
+                                        priorityQueue.Insert(i, edge.vertex2);
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
                 return new Tuple<string, DifficulityRate>(path, diff);
             }
 
