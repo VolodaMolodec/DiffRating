@@ -224,32 +224,24 @@ namespace DifficultyRating.GraphsThing
             {
                 DifficulityRate diff = new DifficulityRate();
                 string path = "";
-                List<Vertex> priorityQueue = new List<Vertex>
-                {
-                    vertices[0]
-                };
-                while (priorityQueue.Count != 0)
+                Heap priorityQueue = new Heap();
+                priorityQueue.Add(0, 0);
+                while (!priorityQueue.IsEmpty())
                 {
                     diff.operationsCount++;
-                    var currVert = priorityQueue[0];
-                    priorityQueue.RemoveAt(0);
+                    var currVert = vertices[priorityQueue.GetTop()];
                     currVert.isVisited = true;
+                    if (currVert == goalVert)
+                        break;
 
                     foreach (var edge in currVert.edges)
                     {
                         diff.operationsCount++;
                         if (!edge.vertex2.isVisited)   //Добавляем те вершины, в которые мы ещё не зашли
                         {
-                            if (!priorityQueue.Contains(edge.vertex2))
+                            if (!priorityQueue.Contains(edge.vertex2.id))
                             {
-                                for(int i = 0; i < priorityQueue.Count; i++)
-                                {
-                                    if (priorityQueue[i].priority < currVert.priority)
-                                    {
-                                        priorityQueue.Insert(i, edge.vertex2);
-                                        break;
-                                    }
-                                }
+                                priorityQueue.Add(edge.vertex2.id, 10 - edge.value);
                             }
                         }
                     }

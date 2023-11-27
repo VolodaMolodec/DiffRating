@@ -153,10 +153,6 @@ namespace DifficultyRating.GraphsThing
         private void testStartButton_Click(object sender, EventArgs e)
         {
             Heap test = new Heap();
-            test.Add(5);
-            test.Add(6);
-            test.Add(1);
-            test.Add(4);
             Tuple<string, int, long> output = new Tuple<string, int, long>("", 0, 0);
             switch (testComboBox.SelectedIndex)
             {

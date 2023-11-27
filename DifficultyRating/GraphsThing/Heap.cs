@@ -1,6 +1,8 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -11,74 +13,119 @@ namespace DifficultyRating.GraphsThing
     {
         class Heap
         {
-            class Vertex
+            class Node
             {
-                public int value;
-                public Vertex lefVert;
-                public Vertex rightVert;
-                public Vertex()
+                public int value;   //Возвращаемое значение
+                public int sortValue;   //Значение, по которому происходит сортировка внутри кучи
+                public Node leftNode;
+                public Node rightNode;
+                public Node()
                 {
                     value = -1;
-                    lefVert = null;
-                    rightVert = null;
+                    leftNode = null;
+                    rightNode = null;
                 }
-                public void Init(int val)
+                public void Init(int val, int priority)
                 {
                     value = val;
-                    lefVert = new Vertex();
-                    rightVert = new Vertex();
+                    sortValue = priority;
+                    leftNode = new Node();
+                    rightNode = new Node();
+                }
+                public bool DeepSearch(int val)
+                {
+                    if (value == -1)
+                        return false;
+                    else if (value == val)
+                        return true;
+                    else if (leftNode.DeepSearch(val) || rightNode.DeepSearch(val))
+                        return true;
+                    else
+                        return false;
                 }
             }
 
-            private Vertex topVert = new Vertex();
+            private Node topVert = new Node();
 
-            public int getTop()
+            public int GetTop()
             {
-                //if (topVert.value == -1)
-                //    return -1;
-                //int res = topVert.value;
-                //if (topVert.lefVert.value == -1) topVert = topVert.rightVert;
-                //else if (topVert.rightVert.value == -1) topVert = topVert.lefVert;
-                //else if(topVert.lefVert.value > topVert.rightVert.value)
-                //{
-
-                //}
-              
-                //return res;
+                if (topVert.value == -1)
+                    return -1;
+                int res = topVert.value;
+                topVert.value = -1;
+                topVert.sortValue = -1;
+                Node currVert = topVert;
+                while(true)
+                {
+                    if(currVert.leftNode.sortValue == -1 && currVert.sortValue == -1)  //Если мы дошли до конца ветки, то выходим
+                    {
+                        currVert.leftNode = null;
+                        currVert.rightNode = null;
+                        break;
+                    }
+                    else
+                    {
+                        Node nextVert = null; //Выбираем следующую вершину для перемещения основываясь
+                        if (currVert.leftNode.sortValue > currVert.rightNode.sortValue)//На более большом значении
+                            nextVert = currVert.leftNode;
+                        else
+                            nextVert = currVert.rightNode;
+                        currVert.value = nextVert.value;
+                        currVert.sortValue = nextVert.sortValue;
+                        nextVert.value = -1;
+                        nextVert.sortValue = -1;
+                        currVert = nextVert;
+                    }
+                }
+                return res;
             }
 
-            public void Add(int val)    //Добавление значения в кучу
+            public void Add(int val, int priority)    //Добавление значения в кучу
             {
-                List<Vertex> queue = new List<Vertex>   
+                List<Node> queue = new List<Node>   
                 {
                     topVert
                 };
                 while(queue.Count != 0)
                 {
-                    Vertex currVert = queue[0];
-                    if (currVert.value == -1)
+                    Node currVert = queue[0];
+                    if (currVert.sortValue == -1)
                     {
-                        currVert.Init(val);
+                        currVert.Init(val, priority);
                         break;
                     }
-                    else if(currVert.value < val) 
+                    else if(currVert.sortValue < priority) 
                     {
-                        Vertex newVert = new Vertex();  //Сложная схема из-за C#. Если кратко, то создаём новый участок памяти, передаём ему все значения текущей области памяти
-                        newVert.Init(currVert.value);   //А текущей области памяти передаём новые значения
-                        newVert.lefVert = currVert.lefVert;
-                        newVert.rightVert = currVert.rightVert;
-                        currVert.lefVert = newVert;
-                        currVert.rightVert = new Vertex();
+                        Node newVert = new Node();  //Неемножно сложная схема из-за C#. Если кратко, то создаём новый участок памяти, передаём ему все значения текущей области памяти
+                        newVert.Init(currVert.value, currVert.sortValue);   //А текущей области памяти передаём новые значения
+                        newVert.leftNode = currVert.leftNode;
+                        newVert.rightNode = currVert.rightNode;
+                        currVert.leftNode = newVert;
+                        currVert.rightNode = new Node();
                         currVert.value = val;
+                        currVert.sortValue = priority;
                         break;
                     }
                     else
                     {
-                        queue.Add(currVert.lefVert);
-                        queue.Add(currVert.rightVert);
+                        queue.Add(currVert.leftNode);
+                        queue.Add(currVert.rightNode);
                     }
                     queue.RemoveAt(0);      
                 }
+            }
+            public bool IsEmpty()
+            {
+                if (topVert.value != -1)
+                    return false;
+                return true;
+            }
+            public bool Contains(int value)
+            {
+                if (IsEmpty())
+                    return true;
+                else
+                    return topVert.DeepSearch(value);
             }
         }
     }
