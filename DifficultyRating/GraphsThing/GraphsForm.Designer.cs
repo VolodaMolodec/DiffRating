@@ -112,7 +112,8 @@
             "Поиск в ширину",
             "Рекурсия ориентированный граф",
             "Дерево минимальных расстояний",
-            "Дийкстра"});
+            "Дийкстра",
+            "HeapSort"});
             this.testComboBox.Location = new System.Drawing.Point(468, 23);
             this.testComboBox.Name = "testComboBox";
             this.testComboBox.Size = new System.Drawing.Size(127, 21);

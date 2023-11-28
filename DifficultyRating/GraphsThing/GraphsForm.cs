@@ -152,7 +152,6 @@ namespace DifficultyRating.GraphsThing
 
         private void testStartButton_Click(object sender, EventArgs e)
         {
-            Heap test = new Heap();
             Tuple<string, int, long> output = new Tuple<string, int, long>("", 0, 0);
             switch (testComboBox.SelectedIndex)
             {
@@ -182,6 +181,17 @@ namespace DifficultyRating.GraphsThing
                     WeightGraph dijkstraGraph = new WeightGraph(readTable());
                     Tuple<string, DifficulityRate> DijkstraResult = dijkstraGraph.Search("Dijkstra");
                     output = new Tuple<string, int, long>(DijkstraResult.Item1, DijkstraResult.Item2.operationsCount, DijkstraResult.Item2.totalTime);
+                    break;
+                case 5:
+                    List<int> list = new List<int>();
+                    Random rnd = new Random();
+                    for(int i = 0; i < Int32.Parse(graphSizeTextBox.Text); i++)
+                        list.Add(rnd.Next(1, 20));
+                    var HeapSortResult = HeapSort(list);
+                    string text = "";
+                    foreach (var x in HeapSortResult.Item1)
+                        text += x.ToString() + " ";
+                    output = new Tuple<string, int, long>(text, HeapSortResult.Item2.operationsCount, HeapSortResult.Item2.totalTime);
                     break;
             }
             testOutput.Text = output.Item1;

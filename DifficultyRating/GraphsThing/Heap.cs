@@ -1,6 +1,7 @@
 ﻿using System;
 using System.CodeDom;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
@@ -22,6 +23,7 @@ namespace DifficultyRating.GraphsThing
                 public Node()
                 {
                     value = -1;
+                    sortValue = -1;
                     leftNode = null;
                     rightNode = null;
                 }
@@ -127,6 +129,27 @@ namespace DifficultyRating.GraphsThing
                 else
                     return topVert.DeepSearch(value);
             }
+        }
+
+        Tuple<List<int>, DifficulityRate> HeapSort(List<int> input)
+        {
+            Stopwatch watch = new Stopwatch();
+            DifficulityRate diff = new DifficulityRate();
+            Heap heap = new Heap();
+            watch.Start();
+            foreach (var x in input)    //Закидываем данные из входящего списка в кучу
+            {
+                diff.operationsCount++;
+                heap.Add(x, x); //Было лень писать отдельный метод с одним параметром, поэтому так
+            }
+            List<int> output = new List<int>();
+            while (!heap.IsEmpty())     //Достаём из кучи данные и записываем в список
+                output.Insert(0, heap.GetTop());
+
+            watch.Stop();
+            diff.totalTime = watch.ElapsedTicks;
+            return new Tuple<List<int>, DifficulityRate>(output, diff);
+
         }
     }
 }
