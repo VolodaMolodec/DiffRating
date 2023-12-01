@@ -86,19 +86,19 @@
     <Compile Include="Lection1\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Lection2\Lection2.cs">
+    <Compile Include="Проче\Lection2.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Lection2\Lection2.Designer.cs">
+    <Compile Include="Проче\Lection2.Designer.cs">
       <DependentUpon>Lection2.cs</DependentUpon>
     </Compile>
-    <Compile Include="Lection2\Median.cs">
+    <Compile Include="Проче\Median.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Lection2\Multiply.cs">
+    <Compile Include="Проче\Multiply.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Lection2\RandomTree.cs">
+    <Compile Include="Проче\RandomTree.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Program.cs" />
@@ -115,7 +115,7 @@
     <EmbeddedResource Include="Lection1\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Lection2\Lection2.resx">
+    <EmbeddedResource Include="Проче\Lection2.resx">
       <DependentUpon>Lection2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
