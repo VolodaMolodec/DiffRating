@@ -23,14 +23,12 @@ namespace DifficultyRating
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Form1 form = new Form1();
+            Algorithms form = new Algorithms();
             form.ShowDialog();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            DifficultyRating.Lection2.Lection2 form = new DifficultyRating.Lection2.Lection2();
-            form.ShowDialog();
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -67,6 +65,11 @@ namespace DifficultyRating
                 return OperationsCountGraph;
             else
                 return ExecutionTimeGraph;
+        }
+        public void Add(int x, DifficulityRate diff)
+        {
+            OperationsCountGraph.Add(x, diff.operationsCount);
+            ExecutionTimeGraph.Add(x, diff.totalTime);
         }
 
     }

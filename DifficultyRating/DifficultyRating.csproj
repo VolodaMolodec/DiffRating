@@ -77,46 +77,33 @@
     <Compile Include="Lection1\BinaryTree.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Lection1\Brackets.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Lection1\Fibonnachi.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Lection1\Form1.cs">
+    <Compile Include="Lection1\Algorithms.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Lection1\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Lection1\Algorithms.Designer.cs">
+      <DependentUpon>Algorithms.cs</DependentUpon>
     </Compile>
-    <Compile Include="Проче\Lection2.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Проче\Lection2.Designer.cs">
-      <DependentUpon>Lection2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Проче\Median.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Проче\Multiply.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Проче\RandomTree.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Lection1\Median.cs" />
+    <Compile Include="Lection1\Multiply.cs" />
+    <Compile Include="Lection1\RandomTree.cs" />
+    <Compile Include="Lection1\StackAndQueue.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Lection1\Sorts.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Lection1\Sorts.cs" />
     <EmbeddedResource Include="DiffRatingProgramm.resx">
       <DependentUpon>DiffRatingProgramm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GraphsThing\GraphsForm.resx">
       <DependentUpon>GraphsForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Lection1\Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Проче\Lection2.resx">
-      <DependentUpon>Lection2.cs</DependentUpon>
+    <EmbeddedResource Include="Lection1\Algorithms.resx">
+      <DependentUpon>Algorithms.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -145,6 +132,8 @@
   <ItemGroup>
     <Content Include="License-LGPL.txt" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Проче\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

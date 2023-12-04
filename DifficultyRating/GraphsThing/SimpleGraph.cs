@@ -27,6 +27,8 @@ namespace DifficultyRating.GraphsThing
             {
                 public Vertex vertex1;
                 public Vertex vertex2;
+                public int id;
+                public bool check = false;  //Нужно для поиска ребра. Хранит информацию о том, проверено ли ребро или нет
             }
 
             List<Vertex> vertices = new List<Vertex>();
@@ -45,6 +47,7 @@ namespace DifficultyRating.GraphsThing
                         if (graph.table[i][j] != 0) //Если есть связь с помощью ребра, то соединяем вершины
                         {
                             Edge newEdge = new Edge();
+                            newEdge.id = edges.Count - 1;
                             newEdge.vertex1 = vert;
                             newEdge.vertex2 = vertices[j];
                             vert.edges.Add(newEdge);
@@ -63,24 +66,18 @@ namespace DifficultyRating.GraphsThing
                 path = ""; //Обнуляем путь
                 foreach (var vert in vertices)  //Обнуляем данные о посещении вершин
                     vert.isVisited = false;
-                //DateTime dateTime = new DateTime();
-                Random rnd = new Random();//(int)dateTime.Ticks);
+                Random rnd = new Random();
                 var goalVert = vertices[rnd.Next(0, vertices.Count)];   //Конечная вершина
                 switch(name)    //В зависимости от названия вызываем соответствующую сортировку
                 {
                     case "Deep":
-                        List<Vertex> stack = new List<Vertex>
-                        {
-                            vertices[rnd.Next(0, vertices.Count)]
-                        };
-                        diff = DeepSearch(stack, goalVert);
+                        diff = DeepSearch(goalVert);
                         break;
                     case "Breadth":
-                        List<Vertex> queue = new List<Vertex>
-                        {
-                            vertices[rnd.Next(0, vertices.Count)]
-                        };
-                        diff = BreadthSearch(queue, goalVert);
+                        diff = BreadthSearch(goalVert);
+                        break;
+                    case "EdgeSearch":
+                        diff = EdgeSearch(edges[rnd.Next(0, edges.Count)]);
                         break;
                 }
                 watch.Stop();
@@ -88,9 +85,13 @@ namespace DifficultyRating.GraphsThing
                 return diff;
             }
 
-            private DifficulityRate DeepSearch(List<Vertex> stack, Vertex goalVert) //Алгоритм поиска в глубину
+            private DifficulityRate DeepSearch(Vertex goalVert) //Алгоритм поиска в глубину
             {
-                DifficulityRate diff = new DifficulityRate(); 
+                DifficulityRate diff = new DifficulityRate();
+                List<Vertex> stack = new List<Vertex>
+                {
+                    vertices[0]
+                };
                 while (stack.Count != 0)
                 {
                     diff.operationsCount++;
@@ -110,10 +111,14 @@ namespace DifficultyRating.GraphsThing
                 }
                 return diff;
             }
-            private DifficulityRate BreadthSearch(List<Vertex> queue, Vertex goalVert)
+            private DifficulityRate BreadthSearch(Vertex goalVert)
             {
                 DifficulityRate diff = new DifficulityRate();
-                while( queue.Count != 0 )
+                List<Vertex> queue = new List<Vertex>
+                {
+                    vertices[0]
+                };
+                while ( queue.Count != 0 )
                 {
                     diff.operationsCount++;
                     Vertex currentVert = queue[0];
@@ -123,11 +128,43 @@ namespace DifficultyRating.GraphsThing
                     if (currentVert == goalVert)    //Если текущая вершина совпадает с конечной, то останавливаемся
                         break;
                     foreach (var edge in currentVert.edges)  //Проходим по всем граням, связанным с вершиной
-                    {                                       //и добавляем в стек все непройденные вершины
+                    {                                       //и добавляем в очередь все непройденные вершины
                         if (edge.vertex1 != currentVert && !edge.vertex1.isVisited && !queue.Contains(edge.vertex1))
                             queue.Add(edge.vertex1);
                         else if (edge.vertex2 != currentVert && !edge.vertex2.isVisited && !queue.Contains(edge.vertex2))
                             queue.Add(edge.vertex2);
+                    }
+                }
+                return diff;
+            }
+
+            private DifficulityRate EdgeSearch(Edge goalEdge)   //Сложность поиска ребра
+            {
+                DifficulityRate diff = new DifficulityRate();
+                List<Vertex> queue = new List<Vertex>
+                {
+                    vertices[0]
+                };
+                while (queue.Count != 0)
+                {
+                    diff.operationsCount++;
+                    Vertex currentVert = queue[0];
+                    currentVert.isVisited = true;
+                    path += currentVert.id.ToString();
+                    queue.RemoveAt(0);
+                    foreach (var edge in currentVert.edges)  //Проходим по всем граням, связанным с вершиной
+                    {                                       //и добавляем в очередь все непройденные вершины
+                        diff.operationsCount++;
+                        if (edge.vertex1 != currentVert && !edge.vertex1.isVisited && !queue.Contains(edge.vertex1))
+                            queue.Add(edge.vertex1);
+                        else if (edge.vertex2 != currentVert && !edge.vertex2.isVisited && !queue.Contains(edge.vertex2))
+                            queue.Add(edge.vertex2);
+                        if (!edge.check)    //Если мы не проверяли грань, то проверяем её на соответствие искомой грани
+                        {
+                            edge.check = true;
+                            if (edge == goalEdge)
+                                return diff;
+                        }
                     }
                 }
                 return diff;

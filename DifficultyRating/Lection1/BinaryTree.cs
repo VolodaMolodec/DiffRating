@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace DifficultyRating
 {
-    public partial class Form1 : Form
+    public partial class Algorithms : Form
     {
         
         class BinaryTree

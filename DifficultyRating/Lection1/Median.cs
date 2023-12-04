@@ -7,9 +7,9 @@ using System.Windows.Forms;
 
 namespace DifficultyRating.Lection2
 {
-    public partial class Lection2 : Form
+    static class Median
     {
-        DifficulityRate RandomMedianDiff(List<int> arr, int elementNum = -1)
+        static DifficulityRate RandomMedianDiff(List<int> arr, int elementNum = -1)
         {
             DifficulityRate diff = new DifficulityRate();
 
@@ -22,7 +22,7 @@ namespace DifficultyRating.Lection2
             Random rnd = new Random();
             int val = arr[rnd.Next(0, arr.Count())];    //Берём случайное значение из массива
             List<int> Left = new List<int>(), Center = new List<int>(), Right = new List<int>();
-            foreach(var iter in arr)    //Сортируем исходный массив по трём массивам
+            foreach (var iter in arr)    //Сортируем исходный массив по трём массивам
             {
                 if (iter < val)
                     Left.Add(iter);
@@ -42,5 +42,7 @@ namespace DifficultyRating.Lection2
 
             return diff;
         }
+
     }
+    
 }
