@@ -9,12 +9,12 @@ namespace DifficultyRating.Lection2
 {
     static class Median
     {
-        static DifficulityRate RandomMedianDiff(List<int> arr, int elementNum = -1)
+        static Tuple<int,DifficulityRate> RandomMedianDiff(List<int> arr, int elementNum = -1)
         {
             DifficulityRate diff = new DifficulityRate();
 
-            if (arr.Count <= 1)
-                return diff;
+            if (arr.Count == 1)
+                return new Tuple<int,DifficulityRate>(arr[0], diff);
 
             if (elementNum == -1)   //Если у нас не определено местоположение медианы, то определяем его
                 elementNum = arr.Count / 2;
@@ -33,14 +33,15 @@ namespace DifficultyRating.Lection2
                 diff.operationsCount++;
             }
 
+            var result = new Tuple<int, DifficulityRate>(0, new DifficulityRate());
             if (Left.Count + Center.Count < elementNum) //Вызываем функцию рукурсивно для нужного массива
-                diff += RandomMedianDiff(Right, elementNum - Left.Count - Center.Count);
+                result = RandomMedianDiff(Right, elementNum - Left.Count - Center.Count);
             else if (Left.Count < elementNum)
-                diff += RandomMedianDiff(Center, elementNum - Left.Count);
+                result = RandomMedianDiff(Center, elementNum - Left.Count);
             else
-                diff += RandomMedianDiff(Left, elementNum);
+                result = RandomMedianDiff(Left, elementNum);
 
-            return diff;
+            return new Tuple<int,DifficulityRate>(result.Item1, result.Item2 + diff);
         }
 
     }

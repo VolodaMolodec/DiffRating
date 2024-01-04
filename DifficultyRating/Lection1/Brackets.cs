@@ -7,8 +7,4 @@ using System.Windows.Forms;
 
 namespace DifficultyRating.Lection1
 {
-    public partial class Lection1 : Form
-    {
-        
-    }
 }
