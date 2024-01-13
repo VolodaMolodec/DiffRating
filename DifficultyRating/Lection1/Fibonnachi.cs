@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,60 +8,55 @@ using System.Windows.Forms;
 
 namespace DifficultyRating
 {
-    class CoolFibonachi
+    static class Fibonachi
     {
-        List<int> memory;
-        DifficulityRate diff;
-        public DifficulityRate CalcFiboDiff(int N)  //Вызыватся из програмы.
+        private static DifficulityRate diff;
+        private static List<int> memory;
+
+        static public Tuple<int,DifficulityRate> Calc(string name, int N )
         {
             diff = new DifficulityRate();
-            memory = new List<int>( new int[N]);
-            if (memory.Count == 0 || memory.Count < N)
-                memory.Capacity = N;
-            if (N <= 2)
-                return diff;
-            else if (memory[N - 1] != 0)
-                return diff;
-            else
+            int res = -1;
+            Stopwatch watch = new Stopwatch();
+            watch.Start();
+            switch(name)
             {
-                diff.operationsCount++;
-                int val = Calc(N - 1) + Calc(N - 2);
-                return diff;
+                case "Advanced":
+                    memory = new List<int>(new int[N]);
+                    if (memory.Count == 0 || memory.Count < N)
+                        memory.Capacity = N;
+                    res = AdvancedFibo(N);
+                    break;
+                case "Slow":
+                    res = SlowFibo(N);
+                    break;
             }
+            watch.Stop();
+            diff.totalTime = watch.ElapsedTicks;
+            return new Tuple<int, DifficulityRate>(res,diff);
         }
-        private int Calc(int n) //Вызыватся внутри класса
+
+        static private int AdvancedFibo(int n)
         {
             if (n <= 2)
                 return n;
             else if (memory[n - 1] != 0)
-                return memory[n];
+                return memory[n - 1];
             else
             {
                 diff.operationsCount++;
-                int val = Calc(n - 1) + Calc(n - 2);
-                memory[n] = val;
+                int val = AdvancedFibo(n - 1) + AdvancedFibo(n - 2);
+                memory[n - 1] = val;
                 return val;
             }
         }
-    }
-    class Fibonnachi
-    {
-        DifficulityRate diff;
-        public DifficulityRate CalcFiboDiff(int N)
-        {
-            diff = new DifficulityRate();
-            diff.operationsCount++;
-            if (N <= 2)
-                return diff;
-            int val = Calc(N - 1) + Calc(N - 2);
-            return diff;
-        }
-        private int Calc(int n)
+
+        static private int SlowFibo(int n)
         {
             if (n <= 2)
                 return n;
             diff.operationsCount++;
-            return Calc(n - 1) + Calc(n - 2);
+            return SlowFibo(n - 1) + SlowFibo(n - 2);
         }
     }
 }

@@ -10,6 +10,8 @@ namespace DifficultyRating.Lection1
 {
     static class Sorts
     {
+        static Stopwatch watch = new Stopwatch();
+        static DifficulityRate diff;
         public static Tuple<List<int>, DifficulityRate> Sort(string name, List<int> array)
         {
             var result = new Tuple<List<int>, DifficulityRate>(new List<int>(), new DifficulityRate());
@@ -20,8 +22,8 @@ namespace DifficultyRating.Lection1
                 case "SelectionSort":
                     result = SelectionSort(array);
                     break;
-                case "QuickSort":
-                    result = QuickSort(array);
+                case "MergeSort":
+                    result = MergeSort(array);
                     break;
             }
             watch.Stop();
@@ -47,7 +49,7 @@ namespace DifficultyRating.Lection1
             }
             return new Tuple<List<int>, DifficulityRate>(array, diff);
         }
-        static Tuple<List<int>, DifficulityRate> QuickSort(List<int> array)
+        static Tuple<List<int>, DifficulityRate> MergeSort(List<int> array)
         {
             Random rnd = new Random();
             DifficulityRate diff = new DifficulityRate();
@@ -68,11 +70,12 @@ namespace DifficultyRating.Lection1
                 else
                     arrLeft.Add(array[i]);
             }
-            var result1 = QuickSort(arrLeft);   //Получаем результаты от рекурсивного вызова для левой и правой части
-            var result2 = QuickSort(arrRight);
+            var result1 = MergeSort(arrLeft);   //Получаем результаты от рекурсивного вызова для левой и правой части
+            var result2 = MergeSort(arrRight);
             diff += result1.Item2;
             diff += result2.Item2;
             List<int> resList = result1.Item1;
+            resList.Add(array[index]);
             resList.AddRange(result2.Item1);
             return new Tuple<List<int>, DifficulityRate>(resList, diff);
         }

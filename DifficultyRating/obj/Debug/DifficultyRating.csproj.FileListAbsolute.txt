@@ -67,3 +67,4 @@ G:\Visual Studio\Projects\Cpp\DiffRating\DifficultyRating\obj\Debug\DifficultyRa
 G:\Visual Studio\Projects\Cpp\DiffRating\DifficultyRating\obj\Debug\DifficultyRating.GraphsThing.GraphsForm.resources
 C:\Visual Sudio Pojects\DiffRating\DifficultyRating\obj\Debug\DifficultyRating.GraphsThing.GraphsForm.resources
 G:\Visual Studio\Projects\Cpp\DiffRating\DifficultyRating\obj\Debug\DifficultyRating.Algorithms.resources
+G:\Visual Studio\Projects\Cpp\DiffRating\DifficultyRating\obj\Debug\DifficultyRating.Tests.TestsForm.resources

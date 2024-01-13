@@ -23,26 +23,8 @@ namespace DifficultyRating.GraphsThing
 
         
         bool initialazed;
+        int drawMode = 0;
         List<DifficultyGraph> diffGraph = new List<DifficultyGraph>();
-
-        private void GraphSelectComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (!initialazed)
-            {
-                InitGraph();
-                initialazed = true;
-            }
-                
-            if (graphShowModeComboBox.SelectedIndex == -1 || GraphSelectComboBox.SelectedIndex == -1)
-                return;
-            GraphPane pane = zedGraphControl1.GraphPane;
-            pane.CurveList.Clear();
-            pane.AddCurve("График",
-                        diffGraph[GraphSelectComboBox.SelectedIndex].GetGraph(graphShowModeComboBox.SelectedIndex), //Получаем нужный граф
-                        Color.Blue, SymbolType.None);
-            zedGraphControl1.AxisChange();
-            zedGraphControl1.Invalidate();
-        }
 
         void InitGraph() //Проводим замеры по времени
         {
@@ -97,108 +79,50 @@ namespace DifficultyRating.GraphsThing
             }
         }
 
-        private void testComboBox_SelectedIndexChanged(object sender, EventArgs e) //ПОдготовка к тестам
+        private void DrawGraph()
         {
-            graphGenerateButton_Click(sender, e);
+            if (!initialazed)
+            {
+                InitGraph();
+                initialazed = true;
+            }
+
+            if (GraphSelectComboBox.SelectedItem != null)
+            {
+                GraphPane pane = zedGraphControl1.GraphPane;
+                pane.CurveList.Clear();
+                pane.AddCurve("График",
+                            diffGraph[GraphSelectComboBox.SelectedIndex].GetGraph(drawMode), //Получаем нужный граф
+                            Color.Blue, SymbolType.None);
+                zedGraphControl1.AxisChange();
+                zedGraphControl1.Invalidate();
+            }
+            
         }
 
-        private void graphGenerateButton_Click(object sender, EventArgs e)
+        private void GraphSelectComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int size = Int32.Parse(graphSizeTextBox.Text);
-            if (testComboBox.SelectedIndex == 0 || testComboBox.SelectedIndex == 1) //Генерируем нужный граф и выводим его
+            DrawGraph();
+        }
+
+        private void operationsCount_CH_CheckedChanged(object sender, EventArgs e)
+        {
+            if (operationsCount_CB.Checked != false)
             {
-                Graph_Table testTable = new Graph_Table();
-                testTable.GenerateFullGraph(size);
-                List<List<int>> table = testTable.table;
-                DrawTable(table);
-            }
-            else if (testComboBox.SelectedIndex == 2)
-            {
-                OrientedGraph testGraph = new OrientedGraph();
-                testGraph.Init(size);
-                DrawTable(testGraph.GetTable());
-            }
-            else if (testComboBox.SelectedIndex == 3 || testComboBox.SelectedIndex == 4)
-            {
-                WeightGraph weightGraph = new WeightGraph();
-                weightGraph.Generate(size);
-                DrawTable(weightGraph.GetTable());
+                drawMode = 0;
+                totalTime_CB.Checked = false;
+                DrawGraph();
             }
         }
 
-        private void DrawTable(List<List<int>> table)
+        private void totalTime_CB_CheckedChanged(object sender, EventArgs e)
         {
-            graphGridView.RowCount = table.Count + 1;
-            graphGridView.ColumnCount = table.Count;
-            for (int y = 0; y < table.Count; y++)
-                for (int x = 0; x < table.Count; x++)
-                    graphGridView[y, x].Value = table[y][x].ToString();
-
-            for (int column = 0; column < table.Count; column++)
-                graphGridView.AutoResizeColumn(column);
-        }
-
-        private List<List<int>> readTable() //Чтение данных из таблицы и представление их в удобной форме
-        {
-            List<List<int>> table = new List<List<int>>();
-            for(int y = 0; y < graphGridView.RowCount - 1; y++)
+            if (totalTime_CB.Checked != false)
             {
-                table.Add(new List<int>());
-                for(int x = 0; x < graphGridView.ColumnCount; x++)
-                    table[y].Add(Int32.Parse(graphGridView[y, x].Value.ToString()));
+                drawMode = 1;
+                operationsCount_CB.Checked = false;
+                DrawGraph();
             }
-            return table;
         }
-
-        private void testStartButton_Click(object sender, EventArgs e)
-        {
-            Tuple<string, int, long> output = new Tuple<string, int, long>("", 0, 0);
-            switch (testComboBox.SelectedIndex)
-            {
-                case 0: //Поиск в глубину
-                    Graph_Arrays _graphDeep = new Graph_Arrays();
-                    _graphDeep.Set(new Graph_Table(readTable()));
-                    DifficulityRate diff1 = _graphDeep.Search("Deep");
-                    output = new Tuple<string, int, long>(_graphDeep.path, diff1.operationsCount, diff1.totalTime);
-                    break;
-                case 1: //Поиск в ширину
-                    Graph_Arrays graphBreadth = new Graph_Arrays();
-                    graphBreadth.Set(new Graph_Table(readTable()));
-                    DifficulityRate diff2 = graphBreadth.Search("Breadth");
-                    output = new Tuple<string, int, long>(graphBreadth.path, diff2.operationsCount, diff2.totalTime);
-                    break;
-                case 2:
-                    OrientedGraph orientedGraph = new OrientedGraph(readTable());
-                    DifficulityRate diff3 = orientedGraph.Search("Recurs");
-                    output = new Tuple<string, int, long>(orientedGraph.path, diff3.operationsCount, diff3.totalTime);
-                    break;
-                case 3:
-                    WeightGraph treeMinGraph = new WeightGraph(readTable());
-                    Tuple<string, DifficulityRate> TreeResult = treeMinGraph.Search("TreeMin");
-                    output = new Tuple<string, int, long>(TreeResult.Item1, TreeResult.Item2.operationsCount, TreeResult.Item2.totalTime);
-                    break;
-                case 4:
-                    WeightGraph dijkstraGraph = new WeightGraph(readTable());
-                    Tuple<string, DifficulityRate> DijkstraResult = dijkstraGraph.Search("Dijkstra");
-                    output = new Tuple<string, int, long>(DijkstraResult.Item1, DijkstraResult.Item2.operationsCount, DijkstraResult.Item2.totalTime);
-                    break;
-                case 5:
-                    List<int> list = new List<int>();
-                    Random rnd = new Random();
-                    for(int i = 0; i < Int32.Parse(graphSizeTextBox.Text); i++)
-                        list.Add(rnd.Next(1, 20));
-                    var HeapSortResult = HeapSort(list);
-                    string text = "";
-                    foreach (var x in HeapSortResult.Item1)
-                        text += x.ToString() + " ";
-                    output = new Tuple<string, int, long>(text, HeapSortResult.Item2.operationsCount, HeapSortResult.Item2.totalTime);
-                    break;
-            }
-            testOutput.Text = output.Item1;
-            testOperationCountLabel.Text = "Операций: " + output.Item2.ToString();
-            testTimeLabel.Text = "Время: " + output.Item3.ToString();
-        }
-
-        
     }
 }

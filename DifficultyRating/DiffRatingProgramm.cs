@@ -29,11 +29,13 @@ namespace DifficultyRating
 
         private void button2_Click(object sender, EventArgs e)
         {
+            DifficultyRating.GraphsThing.GraphsForm form = new GraphsThing.GraphsForm();
+            form.ShowDialog();
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            DifficultyRating.GraphsThing.GraphsForm form = new GraphsThing.GraphsForm();
+            DifficultyRating.Tests.TestsForm form = new Tests.TestsForm();
             form.ShowDialog();
         }
     }
@@ -51,8 +53,8 @@ namespace DifficultyRating
             newDiff.totalTime = diff1.totalTime + diff2.totalTime;
             return newDiff;
         }
-        public int operationsCount { get; set; }
-        public long totalTime { get; set; }
+        public int operationsCount;
+        public long totalTime;
     }
 
     public class DifficultyGraph
@@ -70,6 +72,23 @@ namespace DifficultyRating
         {
             OperationsCountGraph.Add(x, diff.operationsCount);
             ExecutionTimeGraph.Add(x, diff.totalTime);
+        }
+
+    }
+
+    //Чтобы не создавать постоянно переменные Random, используем это.
+    static class CustomRandom
+    {
+        private static Random rnd = new Random();
+
+        public static int Next()
+        {
+            return rnd.Next();
+        }
+
+        public static int Next(int max)
+        {
+            return rnd.Next(max);
         }
 
     }

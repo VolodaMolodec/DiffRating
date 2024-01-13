@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,11 +8,12 @@ using System.Windows.Forms;
 
 namespace DifficultyRating
 {
-    class BinaryTree
+    static class BinaryTree
     {
-        DifficulityRate diff;
-        Node root;
-        Random rnd = new Random();
+        static DifficulityRate diff;
+        static Node root;
+        static Random rnd = new Random();
+        static Stopwatch watch = new Stopwatch();
         class Node
         {
             public int value;
@@ -19,21 +21,52 @@ namespace DifficultyRating
             public Node rightNode;
 
         }
-        public DifficulityRate buildTreeAndGetDiff(int N)
+
+        static public DifficulityRate Build(List<int> arr)
         {
-            List<int> array = new List<int>();
-            for(int i = 0; i  <N; i++)
-                array.Add(rnd.Next() % 100);
+            
             diff = new DifficulityRate();
-            root = buildNode(array);
+            watch.Restart();
+
+            root = buildNode(arr);
+
+            watch.Stop();
+            diff.totalTime = watch.ElapsedTicks;
             return diff;
         }
-        private Node buildNode(List<int> array)  //Построение дерева
+
+        static public Tuple<bool,DifficulityRate> Find(int val)
         {
-            if (array.Count <= 1)
+            diff = new DifficulityRate();
+            watch.Restart();
+
+            bool flag = findVal(val, root);
+
+            watch.Stop();
+            diff.totalTime = watch.ElapsedTicks;
+            return new Tuple<bool,DifficulityRate>(flag, diff);
+        }
+
+        static public Tuple<int, DifficulityRate> Depth()
+        {
+            diff = new DifficulityRate();
+            watch.Restart();
+
+            int depth = getDepth(root);
+
+            watch.Stop();
+            diff.totalTime = watch.ElapsedTicks;
+            return new Tuple<int, DifficulityRate>(depth, diff);
+        }
+
+        static private Node buildNode(List<int> array)  //Построение дерева
+        {
+            if (array.Count == 0)
                 return new Node { value = 0 };
+            if (array.Count == 1)
+                return new Node { value = array[0] };
             Node node = new Node();
-            int index = rnd.Next() % array.Count();
+            int index = array.Count() / 2;
             node.value = array[index];
             List<int> leftArr = new List<int>();
             List<int> rightArr = new List<int>();
@@ -42,23 +75,17 @@ namespace DifficultyRating
                 diff.operationsCount++;
                 if (i == index)
                     continue;
-                else if (array[i] >= array[index])
-                    leftArr.Add(array[i]);
-                else
+                else if (array[i] > array[index])
                     rightArr.Add(array[i]);
+                else
+                    leftArr.Add(array[i]);
             }
             node.leftNode = buildNode(leftArr);
             node.rightNode = buildNode(rightArr);
             return node;
         }
-        public DifficulityRate findAndGetDiff(int value)
-        {
-            diff = new DifficulityRate();
-            findVal(value, root);
-            return diff;
-        }
 
-        private bool findVal(int value, Node node)
+        static private bool findVal(int value, Node node)
         {
             if (node == null)
                 return false;
@@ -70,14 +97,8 @@ namespace DifficultyRating
             else
                 return findVal(value, node.rightNode);
         }
-        public DifficulityRate getDepthDiff()
-        {
-            diff = new DifficulityRate();
-            getDepth(root);
-            return diff;
-        }
 
-        private int getDepth(Node node)
+        static private int getDepth(Node node)
         {
             diff.operationsCount++;
             int depth = 1, leftDepth = 1, rightDepth = 1;

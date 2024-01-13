@@ -8,8 +8,9 @@ using System.Windows.Forms;
 namespace DifficultyRating.Lection2
 {
     static class Median
-    {
-        static Tuple<int,DifficulityRate> RandomMedianDiff(List<int> arr, int elementNum = -1)
+    {   
+        //Поиск медианы 
+        static public Tuple<int,DifficulityRate> RandomMedian(List<int> arr, int elementNum = -1)
         {
             DifficulityRate diff = new DifficulityRate();
 
@@ -33,13 +34,17 @@ namespace DifficultyRating.Lection2
                 diff.operationsCount++;
             }
 
+            //Если остались только одинаковые элементы, то возвращаем любой из них дял предотвращения переполнения стека рекурсии
+            if (Left.Count == 0 && Right.Count == 0 && Center.Count != 0)
+                return new Tuple<int, DifficulityRate>(arr[0], diff);
+
             var result = new Tuple<int, DifficulityRate>(0, new DifficulityRate());
-            if (Left.Count + Center.Count < elementNum) //Вызываем функцию рукурсивно для нужного массива
-                result = RandomMedianDiff(Right, elementNum - Left.Count - Center.Count);
-            else if (Left.Count < elementNum)
-                result = RandomMedianDiff(Center, elementNum - Left.Count);
+            if (Left.Count + Center.Count <= elementNum) //Вызываем функцию рукурсивно для нужного массива
+                result = RandomMedian(Right, elementNum - Left.Count - Center.Count);
+            else if (Left.Count <= elementNum)
+                result = RandomMedian(Center, elementNum - Left.Count);
             else
-                result = RandomMedianDiff(Left, elementNum);
+                result = RandomMedian(Left, elementNum);
 
             return new Tuple<int,DifficulityRate>(result.Item1, result.Item2 + diff);
         }

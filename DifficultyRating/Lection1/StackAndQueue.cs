@@ -51,13 +51,18 @@ namespace DifficultyRating.Lection1
             else
             {
                 var currNode = startNode;
-                while (currNode.id != index)
+                for(int i = 0; i < index; i++)
                     currNode = currNode.nextNode;
                 res = currNode.value;
-                if (currNode.id == 0)   //Если это первый элемент, то заменяем его
+                if (currNode == startNode)   //Если это первый элемент, то заменяем его
                 {
-                    startNode = startNode.nextNode;
-                    startNode.prevNode = null;
+                    if (startNode.nextNode == null)
+                        startNode = null;
+                    else
+                    {
+                        startNode = startNode.nextNode;
+                        startNode.prevNode = null;
+                    }
                 }
                 else if (currNode.nextNode == null) //Если следующего элемента нет, то спокойно удаляем ссылку
                 {
@@ -72,6 +77,7 @@ namespace DifficultyRating.Lection1
                     prevNodePointer.nextNode = nextNodePointer;
                 }
             }
+            size--;
             return res;
         }
     }
@@ -96,7 +102,7 @@ namespace DifficultyRating.Lection1
                 int i = 0;
                 while (list[i] != 0)
                     i++;
-                list[0] = input;
+                list[i] = input;
                 size++;
             }
             else if (data is DoubleList)
@@ -114,12 +120,12 @@ namespace DifficultyRating.Lection1
             {
                 int[] list = data as int[];
                 int i = 0;
+                res = list[0];
                 while (i - 1 < list.Count() && list[i] != 0)
                 {
                     list[i] = list[i + 1];
                     i++;
                 }
-                res = list[i];
                 list[i] = 0;
                 size--;
             }
@@ -152,7 +158,7 @@ namespace DifficultyRating.Lection1
                 int i = 0;
                 while (list[i] != 0)
                     i++;
-                list[0] = input;
+                list[i] = input;
                 size++;
             }
             else if (data is DoubleList)
@@ -169,11 +175,8 @@ namespace DifficultyRating.Lection1
             if (data is int[])
             {
                 int[] list = data as int[];
-                int i = 0;
-                while (i < list.Count() && list[i] != 0)
-                    i++;
-                res = list[i];
-                list[i] = 0;
+                res = list[size - 1];
+                list[size - 1] = 0;
                 size--;
             }
             else if (data is DoubleList)

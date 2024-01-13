@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace DifficultyRating.Lection1
 {
-    class RandomTree
+    static class RandomTree
     {
         class Node
         {
@@ -14,6 +15,7 @@ namespace DifficultyRating.Lection1
             int depth;
             public int buildNode(int depth, int coefficient)
             {
+                diff.operationsCount++;
                 nodes = new List<Node>();
                 this.depth = depth;
                 int number = 1;
@@ -28,14 +30,22 @@ namespace DifficultyRating.Lection1
                 return number;
             }
         }
-        public int elements;
-        Node root;
+        static public int elements;
+        static Node root;
+        static DifficulityRate diff;
+        static Stopwatch watch = new Stopwatch();
 
-        public int buildTree(int depth, int coefficient)
+        static public Tuple<int,DifficulityRate> buildTree(int depth, int coefficient)
         {
+            diff = new DifficulityRate();
+            watch.Restart();
             root = new Node();
             elements = 1 + root.buildNode(depth, coefficient);
-            return elements;
+            diff.operationsCount++;
+
+            watch.Stop();
+            diff.totalTime = watch.ElapsedTicks;
+            return new Tuple<int,DifficulityRate>(elements, diff);
         }
     }
 }

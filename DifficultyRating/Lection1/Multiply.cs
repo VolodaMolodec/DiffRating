@@ -14,6 +14,7 @@ namespace DifficultyRating.Lection2
         public static Tuple<int, DifficulityRate> Mult(string name, int number1, int number2)
         {
             var result = new Tuple<int, DifficulityRate>(0, new DifficulityRate());
+            DifficulityRate diff = new DifficulityRate();
             Stopwatch watch = new Stopwatch();
             watch.Start();
             switch (name)
@@ -21,13 +22,14 @@ namespace DifficultyRating.Lection2
                 case "ColumnMult":
                     result = ColumnMult(number1, number2);
                     break;
-                case "QuickSort":
+                case "NaiveMult":
                     result = NaiveRecur(number1, number2);
                     break;
             }
             watch.Stop();
-            result.Item2.totalTime = watch.ElapsedTicks;
-            return result;
+            diff.totalTime = watch.ElapsedTicks;
+            diff += result.Item2;
+            return new Tuple<int, DifficulityRate>(result.Item1, diff);
         }
         static private Tuple<int,DifficulityRate> ColumnMult(int a, int b)    //Обычное умножение столбиком
         {
@@ -84,7 +86,7 @@ namespace DifficultyRating.Lection2
             }
             else
             {
-                diff.operationsCount++;
+                
                 int d = (int)Math.Pow(10, N / 2);
                 int a1 = a / d, a2 = a % d; //Делим числа на две части
                 int b1 = b / d, b2 = b % d;
