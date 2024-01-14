@@ -96,6 +96,38 @@ namespace DifficultyRating.Tests
             else
                 logTextBox.Text += "Тест Naive Multiply 2 провален\n";
 
+
+            //Проверка перехода представлений графов
+            Graph_Arrays SevenTestGraph = new Graph_Arrays(10, 3);
+            Graph_Table SevenTestTableGraph = new Graph_Table(SevenTestGraph);
+            Graph_List SevenTestListGraph = new Graph_List(SevenTestTableGraph);
+            Graph_Arrays SevenTestEndGraph = new Graph_Arrays(SevenTestListGraph);
+            if (SevenTestGraph == SevenTestEndGraph)
+                logTextBox.Text += "Тест Преобразования графа 1 успешно завершён\n";
+            else
+                logTextBox.Text += "Тест Преобразования графа 1 провален\n";
+
+            //Проверка поиска ребра
+            SevenTestTableGraph.table = new int[6, 6]
+            {
+                { 0, 1, 1, 1, 0, 0 },
+                { 1, 0, 1, 1, 1, 0 },
+                { 1, 1, 0, 1, 1, 1 },
+                { 1, 1, 1, 0, 1, 1 },
+                { 0, 1, 1, 1, 0, 1 },
+                { 0, 0, 1, 1, 1, 0 },
+            };
+            SevenTestGraph.TransformFrom(SevenTestTableGraph);
+            if (SevenTestGraph.EdgeSearch(1, 3).Item1)
+                logTextBox.Text += "Тест Поиск ребра 1 успешно завершён\n";
+            else
+                logTextBox.Text += "Тест Поиск ребра 1 провален\n";
+            if (!SevenTestGraph.EdgeSearch(1, 5).Item1)
+                logTextBox.Text += "Тест Поиск ребра 1 успешно завершён\n";
+            else
+                logTextBox.Text += "Тест Поиск ребра 1 провален\n";
+
+
             //Random Median test
             if (Median.RandomMedian(new List<int> { 1, 5, 2, 2, 3, 4, 10 }).Item1 == 3)
                 logTextBox.Text += "Тест Random Median 1 успешно завершён\n";
@@ -109,13 +141,18 @@ namespace DifficultyRating.Tests
 
 
             //Поиск связанных компонент
-            Graph_Arrays graph = new Graph_Arrays();
-            graph.Generate(6);
+            Graph_Arrays graph = new Graph_Arrays(6, 1);
             graph.Search("ComponentsFind");
             if (graph.components == 1)
                 logTextBox.Text += "Тест Components Search 1 успешно завершён\n";
             else
                 logTextBox.Text += "Тест Components Search 1 провален\n";
+            graph.Generate(8, 3);
+            graph.Search("ComponentsFind");
+            if (graph.components == 3)
+                logTextBox.Text += "Тест Components Search 2 успешно завершён\n";
+            else
+                logTextBox.Text += "Тест Components Search 2 провален\n";
 
 
             //Queue test
@@ -176,11 +213,21 @@ namespace DifficultyRating.Tests
                 new List<int>{ 3, 1, 4, 0 }
             }
             );
-            if (weightGraph.Search("TreeMin").Item1 == "6")
+            if (weightGraph.TreeMin().Item1 == "6")
                 logTextBox.Text += "Тест Tree Min 1 успешно завершён\n";
             else
                 logTextBox.Text += "Тест Tree Min 1 провален\n";
 
+
+            //Dijcstra test
+            if (weightGraph.Dijkstra(1,4).Item1 == "124")
+                logTextBox.Text += "Тест Дейкстра 1 успешно завершён\n";
+            else
+                logTextBox.Text += "Тест Дейкстра 1 провален\n";
+            if (weightGraph.Dijkstra(2, 3).Item1 == "23")
+                logTextBox.Text += "Тест Дейкстра 2 успешно завершён\n";
+            else
+                logTextBox.Text += "Тест Дейкстра 2 провален\n";
         }
     }
 }

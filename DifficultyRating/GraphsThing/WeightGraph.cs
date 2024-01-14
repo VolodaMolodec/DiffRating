@@ -38,11 +38,15 @@ namespace DifficultyRating.GraphsThing
             }
         }
 
+        private List<Vertex> vertices;
+
         public WeightGraph()
         {
             vertices = new List<Vertex>();
         }
-        public WeightGraph(List<List<int>> table)   //Инициализация взвешенного графа через таблицу
+
+        //Инициализация взвешенного графа через таблицу
+        public WeightGraph(List<List<int>> table)   
         {
             Random rnd = new Random();
             vertices = new List<Vertex>();
@@ -64,7 +68,11 @@ namespace DifficultyRating.GraphsThing
             }
         }
 
-        private List<Vertex> vertices;
+        public WeightGraph(int N)
+        {
+            Generate(N);
+        }
+        
 
         public void Generate(int N) //Генерация графа с заданным количеством вершин
         {
@@ -88,7 +96,8 @@ namespace DifficultyRating.GraphsThing
             }
         }
 
-        public List<List<int>> GetTable()   //Возвращает таблицу, представляющую граф
+        //Возвращает таблицу, представляющую граф
+        public List<List<int>> GetTable()   
         {
             List<List<int>> table = new List<List<int>>();
             for (int y = 0; y < vertices.Count; y++)
@@ -107,35 +116,24 @@ namespace DifficultyRating.GraphsThing
             return table;
         }
 
-
-        public Tuple<string, DifficulityRate> Search(string searchName)   //Функция для выбора алгоритма
+        //Очищает данные о пройденных вершинах и кратчайших путях
+        private void ClearVisits()
         {
-            var result = new Tuple<string, DifficulityRate>("", new DifficulityRate());  //Возвращаемое значение
-            Stopwatch watch = new Stopwatch();
-            Random rnd = new Random();
-            Vertex goalVert = vertices[vertices.Count - 1];
-            foreach (var vertex in vertices)    //Обнуляем данные о посещении
-                vertex.isVisited = false;
-            watch.Start();
-
-            switch(searchName)
+            foreach(var vert in vertices)
             {
-                case "TreeMin":     //Дерево минимальных расстояний
-                    result = TreeMin();
-                    break;
-                case "Dijkstra":
-                    result = Dijkstra(goalVert);
-                    break;
+                vert.isVisited = false;
+                vert.minPathVal = -1;
+                vert.minPath = "";
             }
-
-            watch.Stop();
-            result.Item2.totalTime = watch.ElapsedTicks;    //Добавляем время, затраченное на выполнение алгоритмма, в результат
-            return result;
+                
         }
 
-        private Tuple<string, DifficulityRate> TreeMin() //Поиск дерева минимальных расстояний с помощью поиска в ширину
+        //Поиск дерева минимальных расстояний с помощью поиска в ширину
+        public Tuple<string, DifficulityRate> TreeMin() 
         {
+            ClearVisits();
             var diff = new DifficulityRate();
+            CustomWatch.Start();
             int sum = 0;
             List<Vertex> queue = new List<Vertex>   //Создаём очередь и добавляем в неё начальную вершину
             {
@@ -165,26 +163,32 @@ namespace DifficultyRating.GraphsThing
                 if (sumToAdd != -1) //Тут мы типа возвращаем вес минимального остовного древа
                     sum += sumToAdd;
             }
+            CustomWatch.Stop();
+            diff.totalTime = CustomWatch.Get();
             return new Tuple<string, DifficulityRate>(sum.ToString(), diff);
         }
 
-        private Tuple<string, DifficulityRate> Dijkstra(Vertex goalVert)
+        //Алгоритм Дийкстры для поиска пути от вершины с idA до вершины с idB
+        public Tuple<string, DifficulityRate> Dijkstra(int idA, int idB)
         {
+            ClearVisits();
             var diff = new DifficulityRate();
+            CustomWatch.Start();
             string path = "";
-            List<Vertex> queue = new List<Vertex>   //Создаём очередь и добавляем в неё начальную вершину
+            List<Vertex> queue = new List<Vertex>
             {
-                vertices[0]
+                vertices[idA - 1]
             };
-            vertices[0].minPath = vertices[0].id.ToString();    //Нужно, чтобы первая вершина отображалась в конечном результате
-            vertices[0].minPathVal = 0;
+            vertices[idA - 1].minPath = vertices[idA - 1].id.ToString();
+            vertices[idA - 1].minPathVal = 0;
+            
             while (queue.Count != 0) 
             {
                 diff.operationsCount++;
                 var currVert = queue[0];
                 queue.RemoveAt(0);
                 currVert.isVisited = true;
-                if (currVert == goalVert)    //Если мы пришли к искомой вершине, но не прошли остальные, то откладываем обработку искомой вершины
+                if (currVert.id == idB)    //Если мы пришли к искомой вершине, но не прошли остальные, то откладываем обработку искомой вершины
                 {
                     if (queue.Count > 1)
                     {
@@ -214,6 +218,8 @@ namespace DifficultyRating.GraphsThing
                 }
             }
 
+            CustomWatch.Stop();
+            diff.totalTime = CustomWatch.Get();
             return new Tuple<string, DifficulityRate>(path, diff);
         }
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -91,5 +92,29 @@ namespace DifficultyRating
             return rnd.Next(max);
         }
 
+    }
+
+
+    //Класс, с помощью которого будем измерять затраченное время
+    static class CustomWatch
+    {
+        private static Stopwatch watch = new Stopwatch();
+
+        public static void Stop()
+        {
+            watch.Stop();
+        }
+        public static void Start()
+        {
+            watch.Start();
+        }
+        public static void Restart()
+        {
+            watch.Restart();
+        }
+        public static long Get()
+        {
+            return watch.ElapsedTicks;
+        }
     }
 }

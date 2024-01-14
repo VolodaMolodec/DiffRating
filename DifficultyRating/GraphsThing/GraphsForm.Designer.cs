@@ -54,6 +54,7 @@
             // 
             this.GraphSelectComboBox.FormattingEnabled = true;
             this.GraphSelectComboBox.Items.AddRange(new object[] {
+            "Поиск ребра",
             "Поиск в глубину",
             "Поиск в ширину",
             "Дерево минимальных расстояний",
@@ -74,7 +75,7 @@
             this.totalTime_CB.TabIndex = 3;
             this.totalTime_CB.Text = "Кол-во времени";
             this.totalTime_CB.UseVisualStyleBackColor = true;
-            this.totalTime_CB.CheckedChanged += new System.EventHandler(this.totalTime_CB_CheckedChanged);
+            this.totalTime_CB.CheckedChanged += new System.EventHandler(this.TotalTime_CB_CheckedChanged);
             // 
             // operationsCount_CB
             // 
@@ -87,7 +88,7 @@
             this.operationsCount_CB.TabIndex = 4;
             this.operationsCount_CB.Text = "Кол-во операций";
             this.operationsCount_CB.UseVisualStyleBackColor = true;
-            this.operationsCount_CB.CheckedChanged += new System.EventHandler(this.operationsCount_CH_CheckedChanged);
+            this.operationsCount_CB.CheckedChanged += new System.EventHandler(this.OperationsCount_CH_CheckedChanged);
             // 
             // GraphsForm
             // 

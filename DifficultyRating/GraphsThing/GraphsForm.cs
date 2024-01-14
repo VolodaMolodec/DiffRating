@@ -21,26 +21,26 @@ namespace DifficultyRating.GraphsThing
             initialazed = false;
         }
 
-        
         bool initialazed;
         int drawMode = 0;
         List<DifficultyGraph> diffGraph = new List<DifficultyGraph>();
 
-        void InitGraph() //Проводим замеры по времени
+
+        //Измеряем затраченное время
+        void InitGraph()
         {
             OrientedGraph orientedGraph = new OrientedGraph();
-            Graph_Table graph_table = new Graph_Table();
             Graph_Arrays graph_array = new Graph_Arrays();
             WeightGraph weightGraph = new WeightGraph();
-            int totalFunctions = 5;
+            int totalFunctions = 6;
             diffGraph = new List<DifficultyGraph>();
             for(int i = 0; i < totalFunctions; i++)
                 diffGraph.Add(new DifficultyGraph());
 
-            for(int x = 1; x < 50; x++) //проводим замеры для более быстрых алгоритмов
+            //проводим замеры для более быстрых алгоритмов
+            for (int x = 1; x < 50; x++) 
             {
-                graph_table.GenerateFullGraph(x);
-                graph_array.Set(graph_table);
+                graph_array.Generate(x);
                 orientedGraph.Init(x);
                 weightGraph.Generate(x);
                 List<DifficulityRate> diffs = new List<DifficulityRate>();
@@ -48,10 +48,12 @@ namespace DifficultyRating.GraphsThing
                     diffs.Add(new DifficulityRate());
                 for (int i = 0; i < 10; i++)
                 {
-                    diffs[0] += graph_array.Search("Deep");
-                    diffs[1] += graph_array.Search("Breadth");
-                    diffs[2] += weightGraph.Search("TreeMin").Item2;
-                    diffs[3] += weightGraph.Search("Dijkstra").Item2;
+                    diffs[0] += graph_array.EdgeSearch(1, x).Item2;
+                    diffs[1] += graph_array.Search("Deep");
+                    diffs[2] += graph_array.Search("Breadth");
+                    diffs[3] += weightGraph.TreeMin().Item2;
+                    diffs[4] += weightGraph.Dijkstra(1, x).Item2;
+
                 }
                 for (int i = 0; i < totalFunctions - 1; i++)
                 {
@@ -64,7 +66,8 @@ namespace DifficultyRating.GraphsThing
                     diffGraph[i].ExecutionTimeGraph.Add(x, diffs[i].totalTime);
                 }
             }
-            for (int x = 1; x < 10; x++)    //Проводим замеры для более медленных алгоритмов
+            //Проводим замеры для более медленных алгоритмов
+            for (int x = 1; x < 10; x++)    
             {
                 orientedGraph.Init(x);
                 DifficulityRate diff = new DifficulityRate();
@@ -74,11 +77,13 @@ namespace DifficultyRating.GraphsThing
                 }
                 diff.operationsCount /= 10;
                 diff.totalTime /= 10;
-                diffGraph[4].OperationsCountGraph.Add(x, diff.operationsCount);
-                diffGraph[4].ExecutionTimeGraph.Add(x, diff.totalTime);
+                diffGraph[5].OperationsCountGraph.Add(x, diff.operationsCount);
+                diffGraph[5].ExecutionTimeGraph.Add(x, diff.totalTime);
             }
         }
 
+
+        //Отрисовка сгенерированных графиков зависимости времени выполнения от входных данных
         private void DrawGraph()
         {
             if (!initialazed)
@@ -100,12 +105,16 @@ namespace DifficultyRating.GraphsThing
             
         }
 
+
+        //
+        //Привязываем вызовы функций к нажатиям на кнопки
+        //
         private void GraphSelectComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             DrawGraph();
         }
 
-        private void operationsCount_CH_CheckedChanged(object sender, EventArgs e)
+        private void OperationsCount_CH_CheckedChanged(object sender, EventArgs e)
         {
             if (operationsCount_CB.Checked != false)
             {
@@ -115,7 +124,7 @@ namespace DifficultyRating.GraphsThing
             }
         }
 
-        private void totalTime_CB_CheckedChanged(object sender, EventArgs e)
+        private void TotalTime_CB_CheckedChanged(object sender, EventArgs e)
         {
             if (totalTime_CB.Checked != false)
             {
