@@ -58,7 +58,7 @@ namespace DifficultyRating
             this.graphSelectComboBox1.FormattingEnabled = true;
             this.graphSelectComboBox1.Items.AddRange(new object[] {
             "Выборочная сортировка",
-            "Быстрая сортировка",
+            "Сортировка слиянием",
             "Фибоначчи",
             "Крутой Фибоначчи",
             "Построение бинарного дерева",
@@ -67,7 +67,8 @@ namespace DifficultyRating
             "Случайное ветвление",
             "Умножение в столбик",
             "Наивное умножение",
-            "Поиск медианы"});
+            "Поиск медианы",
+            "Heapsort"});
             this.graphSelectComboBox1.Location = new System.Drawing.Point(31, 12);
             this.graphSelectComboBox1.Name = "graphSelectComboBox1";
             this.graphSelectComboBox1.Size = new System.Drawing.Size(153, 21);
@@ -79,7 +80,7 @@ namespace DifficultyRating
             this.graphSelectComboBox2.FormattingEnabled = true;
             this.graphSelectComboBox2.Items.AddRange(new object[] {
             "Выборочная сортировка",
-            "Быстрая сортировка",
+            "Сортировка слиянием",
             "Фибоначчи",
             "Крутой Фибоначчи",
             "Построение бинарного дерева",
@@ -88,7 +89,8 @@ namespace DifficultyRating
             "Случайное ветвление",
             "Умножение в столбик",
             "Наивное умножение",
-            "Поиск медианы"});
+            "Поиск медианы",
+            "Heapsort"});
             this.graphSelectComboBox2.Location = new System.Drawing.Point(31, 39);
             this.graphSelectComboBox2.Name = "graphSelectComboBox2";
             this.graphSelectComboBox2.Size = new System.Drawing.Size(153, 21);

@@ -59,6 +59,7 @@
             "Поиск в ширину",
             "Дерево минимальных расстояний",
             "Дийкстра",
+            "PriorityQueue",
             "Рекурсия ориентированный граф"});
             this.GraphSelectComboBox.Location = new System.Drawing.Point(12, 10);
             this.GraphSelectComboBox.Name = "GraphSelectComboBox";

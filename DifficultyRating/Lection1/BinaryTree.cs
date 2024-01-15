@@ -111,11 +111,11 @@ namespace DifficultyRating
     }
 
     //Написал тут ещё класс для дерева со случайным коэффициентов ветвления
-    static class CoefficientTree
-    {
-        class Node
-        {
-            List<Node> children;
-        }
-    }
+    //static class CoefficientTree
+    //{
+    //    class Node
+    //    {
+    //        List<Node> children;
+    //    }
+    //}
 }

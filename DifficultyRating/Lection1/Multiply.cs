@@ -49,7 +49,6 @@ namespace DifficultyRating.Lection2
             int answer = 0, iter = 1;
             foreach (var cellA in cellsA)
             {
-                diff.operationsCount++;
                 int result = 0, p = 1;
                 foreach (var cellB in cellsB)
                 {
@@ -74,11 +73,12 @@ namespace DifficultyRating.Lection2
             return dischange;
         }
 
-        static private Tuple<int, DifficulityRate> NaiveRecur(int a, int b)  //Наивный рекурсивный метод.  a и b - числа с одинаковым кол-вом разрядов
+        //Наивный рекурсивный метод.  a и b - числа с одинаковым кол-вом разрядов. Умножение методом разделяй и влавствуй
+        static private Tuple<int, DifficulityRate> NaiveRecur(int a, int b)  
         {
             DifficulityRate diff = new DifficulityRate();
             int N = countDischarge(a);  //Вычисляем кол-во разрядов. Поскольку a и b имеют одинаковое ко-во разрядов, то число N будет соответствовать для a и b
-            int result = 0;
+            int result;
             if (N <= 1)
             {
                 diff.operationsCount++;
@@ -86,7 +86,6 @@ namespace DifficultyRating.Lection2
             }
             else
             {
-                
                 int d = (int)Math.Pow(10, N / 2);
                 int a1 = a / d, a2 = a % d; //Делим числа на две части
                 int b1 = b / d, b2 = b % d;
@@ -103,7 +102,7 @@ namespace DifficultyRating.Lection2
 
         public class CoolMult  //Улучшенный рекурсивный метод умножения
         {
-            int[,] data;   //Хранение информации о результатах умножения
+            private int[,] data;   //Хранение информации о результатах умножения
             public CoolMult(int N)  //Передаём максимальное ко-во разрядов в числе
             {
                 int MaxNumber = 0;
@@ -115,11 +114,11 @@ namespace DifficultyRating.Lection2
                 data = new int[MaxNumber, MaxNumber];
             }
 
-            public Tuple<int, DifficulityRate> Mult(int a, int b)  //Наивный рекурсивный метод.  a и b - числа с одинаковым кол-вом разрядов
+            public Tuple<int, DifficulityRate> Mult(int a, int b)
             {
                 DifficulityRate diff = new DifficulityRate();
                 int N = countDischarge(a);  //Вычисляем кол-во разрядов. Поскольку a и b имеют одинаковое ко-во разрядов, то число N будет соответствовать для a и b
-                int result = 0;
+                int result;
                 if (data[a, b] != 0)
                     result = data[a, b];
                 else if (N <= 1)

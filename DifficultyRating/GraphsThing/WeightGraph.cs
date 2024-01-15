@@ -223,18 +223,19 @@ namespace DifficultyRating.GraphsThing
             return new Tuple<string, DifficulityRate>(path, diff);
         }
 
-        Tuple<string, DifficulityRate> PriorityQueue(Vertex goalVert)
+        public Tuple<string, DifficulityRate> PriorityQueue(int idA, int idB)
         {
             DifficulityRate diff = new DifficulityRate();
+            CustomWatch.Start();
             string path = "";
             Heap priorityQueue = new Heap();
-            priorityQueue.Add(0, 0);
+            priorityQueue.Add(idA - 1, 10);
             while (!priorityQueue.IsEmpty())
             {
                 diff.operationsCount++;
                 var currVert = vertices[priorityQueue.GetTop()];
                 currVert.isVisited = true;
-                if (currVert == goalVert)
+                if (currVert.id == idB)
                     break;
 
                 foreach (var edge in currVert.edges)
@@ -244,11 +245,13 @@ namespace DifficultyRating.GraphsThing
                     {
                         if (!priorityQueue.Contains(edge.vertex2.id))
                         {
-                            priorityQueue.Add(edge.vertex2.id, 10 - edge.value);
+                            priorityQueue.Add(edge.vertex2.id -1, 10 - edge.value);
                         }
                     }
                 }
             }
+            CustomWatch.Stop();
+            diff.totalTime = CustomWatch.Get();
             return new Tuple<string, DifficulityRate>(path, diff);
         }
 

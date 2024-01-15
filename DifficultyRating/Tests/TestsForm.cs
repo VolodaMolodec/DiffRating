@@ -26,21 +26,21 @@ namespace DifficultyRating.Tests
             logTextBox.Text = "";
 
             //Selection Sort tests
-            if (Lection1.Sorts.Sort("SelectionSort", new List<int> { 1, 5, 2, 4, 3 }).Item1.SequenceEqual(new List<int> { 1, 2, 3, 4, 5 }))
+            if (Lection1.Sorts.SelectionSort(new List<int> { 1, 5, 2, 4, 3 }).Item1.SequenceEqual(new List<int> { 1, 2, 3, 4, 5 }))
                 logTextBox.Text += "Тест Selection Sort 1 успешно завершён\n";
             else
                 logTextBox.Text += "Тест Selection Sort 1 провален\n";
-            if (Lection1.Sorts.Sort("SelectionSort", new List<int> { 1, 5, 2, 2, 3, 4, 10 }).Item1.SequenceEqual(new List<int> { 1, 2, 2, 3, 4, 5 , 10}))
+            if (Lection1.Sorts.SelectionSort(new List<int> { 1, 5, 2, 2, 3, 4, 10 }).Item1.SequenceEqual(new List<int> { 1, 2, 2, 3, 4, 5 , 10}))
                 logTextBox.Text += "Тест Selection Sort 2 успешно завершён\n";
             else
                 logTextBox.Text += "Тест Selection Sort 2 провален\n";
 
             //Merge Sort tests
-            if (Lection1.Sorts.Sort("MergeSort", new List<int> { 1, 5, 2, 4, 3 }).Item1.SequenceEqual(new List<int> { 1, 2, 3, 4, 5 }))
+            if (Lection1.Sorts.MergeSort(new List<int> { 1, 5, 2, 4, 3 }).Item1.SequenceEqual(new List<int> { 1, 2, 3, 4, 5 }))
                 logTextBox.Text += "Тест Merge Sort 1 успешно завершён\n";
             else
                 logTextBox.Text += "Тест Merge Sort 1 провален\n";
-            if (Lection1.Sorts.Sort("MergeSort", new List<int> { 1, 5, 2, 2, 3, 4, 10 }).Item1.SequenceEqual(new List<int> { 1, 2, 2, 3, 4, 5, 10 }))
+            if (Lection1.Sorts.MergeSort(new List<int> { 1, 5, 2, 2, 3, 4, 10 }).Item1.SequenceEqual(new List<int> { 1, 2, 2, 3, 4, 5, 10 }))
                 logTextBox.Text += "Тест Merge Sort 2 успешно завершён\n";
             else
                 logTextBox.Text += "Тест Merge Sort 2 провален\n";
@@ -228,6 +228,16 @@ namespace DifficultyRating.Tests
                 logTextBox.Text += "Тест Дейкстра 2 успешно завершён\n";
             else
                 logTextBox.Text += "Тест Дейкстра 2 провален\n";
+
+            //Heapsort test
+            if (Sorts.HeapSort(new List<int> { 1, 5, 2, 4, 3 }).Item1.SequenceEqual(new List<int> { 1, 2, 3, 4, 5 }))
+                logTextBox.Text += "Тест Heapsort 1 успешно завершён\n";
+            else
+                logTextBox.Text += "Тест Heapsort 1 провален\n";
+            if (Sorts.HeapSort(new List<int> { 1, 5, 2, 2, 3, 4, 10 }).Item1.SequenceEqual(new List<int> { 1, 2, 2, 3, 4, 5, 10 }))
+                logTextBox.Text += "Тест Heapsort 2 успешно завершён\n";
+            else
+                logTextBox.Text += "Тест Heapsort 2 провален\n";
         }
     }
 }

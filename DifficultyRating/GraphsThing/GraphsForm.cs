@@ -1,13 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Reflection;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using ZedGraph;
 
@@ -32,7 +25,7 @@ namespace DifficultyRating.GraphsThing
             OrientedGraph orientedGraph = new OrientedGraph();
             Graph_Arrays graph_array = new Graph_Arrays();
             WeightGraph weightGraph = new WeightGraph();
-            int totalFunctions = 6;
+            int totalFunctions = 7;
             diffGraph = new List<DifficultyGraph>();
             for(int i = 0; i < totalFunctions; i++)
                 diffGraph.Add(new DifficultyGraph());
@@ -46,13 +39,14 @@ namespace DifficultyRating.GraphsThing
                 List<DifficulityRate> diffs = new List<DifficulityRate>();
                 for (int i = 0; i < totalFunctions; i++)
                     diffs.Add(new DifficulityRate());
-                for (int i = 0; i < 10; i++)
+                for (int i = 0; i < 50; i++)
                 {
                     diffs[0] += graph_array.EdgeSearch(1, x).Item2;
                     diffs[1] += graph_array.Search("Deep");
                     diffs[2] += graph_array.Search("Breadth");
                     diffs[3] += weightGraph.TreeMin().Item2;
                     diffs[4] += weightGraph.Dijkstra(1, x).Item2;
+                    diffs[5] += weightGraph.PriorityQueue(1, x).Item2;
 
                 }
                 for (int i = 0; i < totalFunctions - 1; i++)
@@ -61,10 +55,7 @@ namespace DifficultyRating.GraphsThing
                     diffs[i].totalTime /= 10;
                 }
                 for (int i = 0; i < totalFunctions - 1; i++)
-                {
-                    diffGraph[i].OperationsCountGraph.Add(x, diffs[i].operationsCount);
-                    diffGraph[i].ExecutionTimeGraph.Add(x, diffs[i].totalTime);
-                }
+                    diffGraph[i].Add(x, diffs[i]);
             }
             //Проводим замеры для более медленных алгоритмов
             for (int x = 1; x < 10; x++)    
@@ -77,8 +68,8 @@ namespace DifficultyRating.GraphsThing
                 }
                 diff.operationsCount /= 10;
                 diff.totalTime /= 10;
-                diffGraph[5].OperationsCountGraph.Add(x, diff.operationsCount);
-                diffGraph[5].ExecutionTimeGraph.Add(x, diff.totalTime);
+                diffGraph[6].OperationsCountGraph.Add(x, diff.operationsCount);
+                diffGraph[6].ExecutionTimeGraph.Add(x, diff.totalTime);
             }
         }
 

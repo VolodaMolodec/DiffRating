@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DifficultyRating.GraphsThing;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -10,30 +11,10 @@ namespace DifficultyRating.Lection1
 {
     static class Sorts
     {
-        static Stopwatch watch = new Stopwatch();
-        static DifficulityRate diff;
-        public static Tuple<List<int>, DifficulityRate> Sort(string name, List<int> array)
-        {
-            var result = new Tuple<List<int>, DifficulityRate>(new List<int>(), new DifficulityRate());
-            Stopwatch watch = new Stopwatch();
-            watch.Start();
-            switch(name)
-            {
-                case "SelectionSort":
-                    result = SelectionSort(array);
-                    break;
-                case "MergeSort":
-                    result = MergeSort(array);
-                    break;
-            }
-            watch.Stop();
-            result.Item2.totalTime = watch.ElapsedTicks;
-            return result;
-        }
-
-        static Tuple<List<int>, DifficulityRate> SelectionSort(List<int> array)
+        public static Tuple<List<int>, DifficulityRate> SelectionSort(List<int> array)
         {
             DifficulityRate diff = new DifficulityRate();
+            CustomWatch.Start();
             int maxId = 0, lastId = array.Count() - 1;
             while (lastId != 0)
             {
@@ -47,17 +28,19 @@ namespace DifficultyRating.Lection1
                 maxId = 0;
                 lastId--;
             }
+            CustomWatch.Stop();
+            diff.totalTime = CustomWatch.Get();
             return new Tuple<List<int>, DifficulityRate>(array, diff);
         }
-        static Tuple<List<int>, DifficulityRate> MergeSort(List<int> array)
+        public static Tuple<List<int>, DifficulityRate> MergeSort(List<int> array)
         {
-            Random rnd = new Random();
             DifficulityRate diff = new DifficulityRate();
+            CustomWatch.Start();
 
             if (array.Count() <= 1)
                 return new Tuple<List<int>, DifficulityRate>(array, new DifficulityRate());
             
-            int index = rnd.Next() % array.Count(); //Получаем индекс случайного элемента
+            int index = CustomRandom.Next() % array.Count(); //Получаем индекс случайного элемента
             List<int> arrLeft = new List<int>();    //Создаём списки для левой и правой части
             List<int> arrRight = new List<int>();
             for (int i = 0; i < array.Count; i++)
@@ -77,7 +60,29 @@ namespace DifficultyRating.Lection1
             List<int> resList = result1.Item1;
             resList.Add(array[index]);
             resList.AddRange(result2.Item1);
+            CustomWatch.Stop();
+            diff.totalTime = CustomWatch.Get();
             return new Tuple<List<int>, DifficulityRate>(resList, diff);
+        }
+
+        static public Tuple<List<int>, DifficulityRate> HeapSort(List<int> input)
+        {
+            DifficulityRate diff = new DifficulityRate();
+            Heap heap = new Heap();
+            CustomWatch.Start();
+            foreach (var x in input)    //Закидываем данные из входящего списка в кучу
+            {
+                diff.operationsCount++;
+                diff += heap.Add(x, x); //Было лень писать отдельный метод с одним параметром, поэтому так
+            }
+            List<int> output = new List<int>();
+            while (!heap.IsEmpty())     //Достаём из кучи данные и записываем в список
+                output.Insert(0, heap.GetTop());
+
+            CustomWatch.Stop();
+            diff.totalTime = CustomWatch.Get();
+            return new Tuple<List<int>, DifficulityRate>(output, diff);
+
         }
     }
 }

@@ -71,8 +71,10 @@ namespace DifficultyRating
         }
         public void Add(int x, DifficulityRate diff)
         {
-            OperationsCountGraph.Add(x, diff.operationsCount);
-            ExecutionTimeGraph.Add(x, diff.totalTime);
+            OperationsCountGraph.Add(Math.Log(x, 2), Math.Log(diff.operationsCount, 2));
+            ExecutionTimeGraph.Add(Math.Log(x, 2), Math.Log(diff.totalTime, 2));
+            //OperationsCountGraph.Add(x, diff.operationsCount);
+            //ExecutionTimeGraph.Add(x, diff.totalTime);
         }
 
     }
@@ -90,6 +92,11 @@ namespace DifficultyRating
         public static int Next(int max)
         {
             return rnd.Next(max);
+        }
+
+        public static int Next(int min, int max)
+        {
+            return rnd.Next(min, max);
         }
 
     }

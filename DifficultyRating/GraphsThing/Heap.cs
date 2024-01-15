@@ -80,14 +80,16 @@ namespace DifficultyRating.GraphsThing
             return res;
         }
 
-        public void Add(int val, int priority)    //Добавление значения в кучу
+        public DifficulityRate Add(int val, int priority)    //Добавление значения в кучу
         {
+            DifficulityRate diff = new DifficulityRate();
             List<Node> queue = new List<Node>   
             {
                 topVert
             };
             while(queue.Count != 0)
             {
+                diff.operationsCount++;
                 Node currVert = queue[0];
                 if (currVert.sortValue == -1)
                 {
@@ -113,6 +115,7 @@ namespace DifficultyRating.GraphsThing
                 }
                 queue.RemoveAt(0);      
             }
+            return diff;
         }
         public bool IsEmpty()
         {
@@ -126,30 +129,6 @@ namespace DifficultyRating.GraphsThing
                 return true;
             else
                 return topVert.DeepSearch(value);
-        }
-    }
-
-    static class Sorts
-    {
-        static public Tuple<List<int>, DifficulityRate> HeapSort(List<int> input)
-        {
-            Stopwatch watch = new Stopwatch();
-            DifficulityRate diff = new DifficulityRate();
-            Heap heap = new Heap();
-            watch.Start();
-            foreach (var x in input)    //Закидываем данные из входящего списка в кучу
-            {
-                diff.operationsCount++;
-                heap.Add(x, x); //Было лень писать отдельный метод с одним параметром, поэтому так
-            }
-            List<int> output = new List<int>();
-            while (!heap.IsEmpty())     //Достаём из кучи данные и записываем в список
-                output.Insert(0, heap.GetTop());
-
-            watch.Stop();
-            diff.totalTime = watch.ElapsedTicks;
-            return new Tuple<List<int>, DifficulityRate>(output, diff);
-
         }
     }
 }

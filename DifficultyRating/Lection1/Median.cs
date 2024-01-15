@@ -13,15 +13,13 @@ namespace DifficultyRating.Lection2
         static public Tuple<int,DifficulityRate> RandomMedian(List<int> arr, int elementNum = -1)
         {
             DifficulityRate diff = new DifficulityRate();
-
             if (arr.Count == 1)
                 return new Tuple<int,DifficulityRate>(arr[0], diff);
 
             if (elementNum == -1)   //Если у нас не определено местоположение медианы, то определяем его
                 elementNum = arr.Count / 2;
 
-            Random rnd = new Random();
-            int val = arr[rnd.Next(0, arr.Count())];    //Берём случайное значение из массива
+            int val = arr[CustomRandom.Next(0, arr.Count())];    //Берём случайное значение из массива
             List<int> Left = new List<int>(), Center = new List<int>(), Right = new List<int>();
             foreach (var iter in arr)    //Сортируем исходный массив по трём массивам
             {
@@ -38,7 +36,7 @@ namespace DifficultyRating.Lection2
             if (Left.Count == 0 && Right.Count == 0 && Center.Count != 0)
                 return new Tuple<int, DifficulityRate>(arr[0], diff);
 
-            var result = new Tuple<int, DifficulityRate>(0, new DifficulityRate());
+            Tuple<int, DifficulityRate> result;
             if (Left.Count + Center.Count <= elementNum) //Вызываем функцию рукурсивно для нужного массива
                 result = RandomMedian(Right, elementNum - Left.Count - Center.Count);
             else if (Left.Count <= elementNum)
