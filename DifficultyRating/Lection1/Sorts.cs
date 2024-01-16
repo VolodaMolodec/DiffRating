@@ -73,7 +73,7 @@ namespace DifficultyRating.Lection1
             foreach (var x in input)    //Закидываем данные из входящего списка в кучу
             {
                 diff.operationsCount++;
-                diff += heap.Add(x, x); //Было лень писать отдельный метод с одним параметром, поэтому так
+                diff += heap.Add(x);
             }
             List<int> output = new List<int>();
             while (!heap.IsEmpty())     //Достаём из кучи данные и записываем в список

@@ -25,6 +25,10 @@ namespace DifficultyRating.GraphsThing
                 leftNode = null;
                 rightNode = null;
             }
+            public Node(int val, int priority)
+            {
+                Init(val, priority);
+            }
             public void Init(int val, int priority)
             {
                 value = val;
@@ -80,6 +84,11 @@ namespace DifficultyRating.GraphsThing
             return res;
         }
 
+        public DifficulityRate Add(int val)
+        {
+            return Add(val, val);
+        }
+
         public DifficulityRate Add(int val, int priority)    //Добавление значения в кучу
         {
             DifficulityRate diff = new DifficulityRate();
@@ -98,8 +107,8 @@ namespace DifficultyRating.GraphsThing
                 }
                 else if(currVert.sortValue < priority) 
                 {
-                    Node newVert = new Node();  //Неемножно сложная схема из-за C#. Если кратко, то создаём новый участок памяти, передаём ему все значения текущей области памяти
-                    newVert.Init(currVert.value, currVert.sortValue);   //А текущей области памяти передаём новые значения
+                    Node newVert = new Node(currVert.value, currVert.sortValue);  //Неемножно сложная схема из-за C#. Если кратко, то создаём новый участок памяти, передаём ему все значения текущей области памяти
+                   //А текущей области памяти передаём новые значения
                     newVert.leftNode = currVert.leftNode;
                     newVert.rightNode = currVert.rightNode;
                     currVert.leftNode = newVert;

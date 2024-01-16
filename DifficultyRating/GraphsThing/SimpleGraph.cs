@@ -95,8 +95,10 @@ namespace DifficultyRating.GraphsThing
             int N = graph.table.GetLength(0);
             for (int i = 0; i < N; i++)
             {
-                Vertex vert = new Vertex();
-                vert.id = vertices.Count + 1;
+                Vertex vert = new Vertex
+                {
+                    id = i + 1
+                };
                 vertices.Add(vert);
                 for (int j = 0; j <= i; j++)    //Проходим по таблице смежности. В каждой строке не доходим
                 {                               //до диагонали.

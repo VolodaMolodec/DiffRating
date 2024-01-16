@@ -75,16 +75,14 @@ namespace DifficultyRating.GraphsThing
             vertices = new List<Vertex>();
             edges = new List<OrientedEdge>();
 
-            DateTime dateTime = new DateTime();
-            Random rnd = new Random((int)dateTime.Ticks);
             for(int i = 0; i < N; i++)
             {
                 Vertex newVert = new Vertex();
                 for(int j = 0; j < vertices.Count; j++)
                 {
                     OrientedEdge edge = new OrientedEdge();
-                    edge.value = rnd.Next(0, 10);  //Генерируем вес ребра
-                    if (rnd.Next(0, 2) == 0)    //генерируем ориентацию ребра
+                    edge.value = CustomRandom.Next(0, 10);  //Генерируем вес ребра
+                    if (CustomRandom.Next(0, 2) == 0)    //генерируем ориентацию ребра
                     {
                         edge.outVert = newVert;
                         edge.inVert = vertices[j];
@@ -129,11 +127,9 @@ namespace DifficultyRating.GraphsThing
         public DifficulityRate Search(string name)  //Поиск вершины в графе. Принимает название поиска
         {
             diff = new DifficulityRate();
-            Stopwatch watch = new Stopwatch();
-            Random rnd = new Random();
-            Vertex goalVert = vertices[rnd.Next(0, vertices.Count)];
+            Vertex goalVert = vertices[CustomRandom.Next(0, vertices.Count)];
             Vertex startVert = vertices[0];
-            watch.Start();
+            CustomWatch.Start();
             switch (name)
             {
                 case "Recurs":
@@ -142,8 +138,8 @@ namespace DifficultyRating.GraphsThing
                     sum = result.Item1;
                     break;
             }
-            watch.Stop();
-            diff.totalTime = watch.ElapsedTicks;
+            CustomWatch.Stop();
+            diff.totalTime = CustomWatch.Get();
             return diff;
         }
 
@@ -172,7 +168,6 @@ namespace DifficultyRating.GraphsThing
                         valSum = edge.value + result.Item1;
                         minPath = result.Item2;
                     }
-                            
                 }
             }
 
