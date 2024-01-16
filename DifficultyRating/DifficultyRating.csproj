@@ -62,7 +62,6 @@
     <Compile Include="GraphsThing\GraphsForm.Designer.cs">
       <DependentUpon>GraphsForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="GraphsThing\Heap.cs" />
     <Compile Include="GraphsThing\OrientedGraph.cs" />
     <Compile Include="GraphsThing\SimpleGraph.cs" />
     <Compile Include="GraphsThing\WeightGraph.cs" />
@@ -78,10 +77,10 @@
     <Compile Include="Lection1\Median.cs" />
     <Compile Include="Lection1\Multiply.cs" />
     <Compile Include="Lection1\RandomTree.cs" />
-    <Compile Include="Lection1\StackAndQueue.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Lection1\Sorts.cs" />
+    <Compile Include="Structures.cs" />
     <Compile Include="Tests\TestsForm.cs">
       <SubType>Form</SubType>
     </Compile>

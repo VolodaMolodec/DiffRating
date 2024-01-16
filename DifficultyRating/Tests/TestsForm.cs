@@ -218,6 +218,12 @@ namespace DifficultyRating.Tests
             else
                 logTextBox.Text += "Тест Tree Min 1 провален\n";
 
+            //Краскал тест
+            if(weightGraph.Kruskal().Item1 == 6)
+                logTextBox.Text += "Тест Крускал 1 успешно завершён\n";
+            else
+                logTextBox.Text += "Тест Крускал 1 провален\n";
+
 
             //Dijcstra test
             if (weightGraph.Dijkstra(1,4).Item1 == "124")

@@ -44,7 +44,7 @@ namespace DifficultyRating.GraphsThing
                     diffs[0] += graph_array.EdgeSearch(1, x).Item2;
                     diffs[1] += graph_array.Search("Deep");
                     diffs[2] += graph_array.Search("Breadth");
-                    diffs[3] += weightGraph.TreeMin().Item2;
+                    diffs[3] += weightGraph.Kruskal().Item2;
                     diffs[4] += weightGraph.Dijkstra(1, x).Item2;
                     diffs[5] += weightGraph.PriorityQueue(1, x).Item2;
 

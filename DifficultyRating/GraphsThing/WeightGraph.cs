@@ -39,6 +39,7 @@ namespace DifficultyRating.GraphsThing
         }
 
         private List<Vertex> vertices;
+        private List<Edge> edges;
 
         public WeightGraph()
         {
@@ -50,6 +51,7 @@ namespace DifficultyRating.GraphsThing
         {
             Random rnd = new Random();
             vertices = new List<Vertex>();
+            edges = new List<Edge>();
             for (int y = 0; y < table.Count; y++)   //Проходим по таблице
             {
                 vertices.Add(new Vertex());
@@ -63,6 +65,7 @@ namespace DifficultyRating.GraphsThing
                     edge.value = Math.Abs(table[y][x]);
                     newVert.edges.Add(edge);
                     vertices[x].edges.Add(edge.Reverse());
+                    edges.Add(edge);
                 }
                 newVert.priority = rnd.Next() % 10;
             }
@@ -77,6 +80,7 @@ namespace DifficultyRating.GraphsThing
         public void Generate(int N) //Генерация графа с заданным количеством вершин
         {
             vertices = new List<Vertex>();
+            edges = new List<Edge>();
 
             Random rnd = new Random();
             for (int i = 0; i < N; i++)
@@ -90,6 +94,7 @@ namespace DifficultyRating.GraphsThing
                     edge.vertex2 = vertices[j];
                     newVert.edges.Add(edge);
                     vertices[j].edges.Add(edge.Reverse());
+                    edges.Add(edge);
                 }
                 newVert.id = vertices.Count + 1;
                 vertices.Add(newVert);
@@ -223,6 +228,7 @@ namespace DifficultyRating.GraphsThing
             return new Tuple<string, DifficulityRate>(path, diff);
         }
 
+        //Обходим граф в ширину с помощью приоритетной очереди
         public Tuple<string, DifficulityRate> PriorityQueue(int idA, int idB)
         {
             DifficulityRate diff = new DifficulityRate();
@@ -253,6 +259,54 @@ namespace DifficultyRating.GraphsThing
             CustomWatch.Stop();
             diff.totalTime = CustomWatch.Get();
             return new Tuple<string, DifficulityRate>(path, diff);
+        }
+
+
+        private List<Edge> EdgesSort(List<Edge> list)
+        {
+            if(list.Count <= 1)
+                return list;
+            var pivot = list[CustomRandom.Next(list.Count)];
+            List<Edge> leftEdges = new List<Edge>();
+            List<Edge> rightEdges = new List<Edge>();
+            for(int i = 0; i < list.Count; i++)
+            {
+                if (list[i] == pivot)
+                    continue;
+                else
+                {
+                    if (list[i].value > pivot.value)
+                        rightEdges.Add(list[i]);
+                    else
+                        leftEdges.Add(list[i]);
+                } 
+            }
+
+            var result = EdgesSort(leftEdges);
+            result.Add(pivot);
+            result.AddRange(EdgesSort(rightEdges));
+            return result;
+        }
+
+        //Алгоритм Краскала.
+        public Tuple<int,DifficulityRate> Kruskal()
+        {
+            if (edges == null)
+                return new Tuple<int, DifficulityRate>(0, new DifficulityRate());
+            DifficulityRate diff = new DifficulityRate();
+            CustomWatch.Start();
+            UnconnectedArrays arrays = new UnconnectedArrays(vertices.Count());
+            int val = 0;
+            var list = EdgesSort(edges);
+            foreach(var edge in list)
+            {
+                diff.operationsCount++;
+                if (arrays.Union(edge.vertex1.id, edge.vertex2.id))
+                    val += edge.value;             
+            }
+            CustomWatch.Stop();
+            diff.totalTime = CustomWatch.Get();
+            return new Tuple<int, DifficulityRate>(val, diff);
         }
 
     }

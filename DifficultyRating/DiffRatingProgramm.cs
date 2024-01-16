@@ -73,8 +73,6 @@ namespace DifficultyRating
         {
             OperationsCountGraph.Add(Math.Log(x, 2), Math.Log(diff.operationsCount, 2));
             ExecutionTimeGraph.Add(Math.Log(x, 2), Math.Log(diff.totalTime, 2));
-            //OperationsCountGraph.Add(x, diff.operationsCount);
-            //ExecutionTimeGraph.Add(x, diff.totalTime);
         }
 
     }
